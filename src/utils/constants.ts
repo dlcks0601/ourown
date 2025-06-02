@@ -9,6 +9,7 @@
 export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
 export const GOOGLE_REDIRECT_URI = `${process.env.EXPO_PUBLIC_BASE_URL}/auth/google`;
 export const GOOGLE_AUTH_URL = 'https://accounts.google.com/o/oauth2/v2/auth';
+export const VERIFY_URL = `${process.env.EXPO_PUBLIC_BASE_URL}/auth/google/verify`;
 
 // Environment Constants
 export const BASE_URL = process.env.EXPO_PUBLIC_BASE_URL;
