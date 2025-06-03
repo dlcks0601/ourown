@@ -87,7 +87,7 @@ export default function SignupScreen() {
     >
       <ScrollView
         keyboardShouldPersistTaps='handled'
-        contentContainerStyle={{ marginTop: 60 }}
+        contentContainerStyle={{ marginTop: 50 }}
         scrollEnabled={isKeyboardVisible}
       >
         <SafeAreaView className='flex-1'>

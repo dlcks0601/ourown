@@ -13,7 +13,7 @@ export const useAuthMutation = () => {
       const { user, jwt, isNew } = data;
       await logIn(user, jwt);
       if (isNew) {
-        router.navigate('/(auth)/nickname');
+        router.navigate('/auth/nickname');
       } else router.navigate('/(protected)/(tabs)/(home)');
     },
   });
@@ -29,7 +29,7 @@ export const useSignupMutation = () => {
     onSuccess: async (data: SignupResponse) => {
       const { user, jwt } = data;
       await logIn(user, jwt);
-      router.push('/nickname');
+      router.push('/auth/nickname');
     },
   });
   return { signup: mutate };

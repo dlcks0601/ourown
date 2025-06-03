@@ -21,7 +21,7 @@ export default function IndexScreen() {
         style: 'destructive',
         onPress: () => {
           logOut();
-          router.replace('/(auth)');
+          router.replace('/login');
         },
       },
     ]);

@@ -81,7 +81,7 @@ export default function LoginScreen() {
     >
       <ScrollView
         keyboardShouldPersistTaps='handled'
-        contentContainerStyle={{ marginTop: 60 }}
+        contentContainerStyle={{ marginTop: 50 }}
         scrollEnabled={isKeyboardVisible}
       >
         <SafeAreaView className='flex-1'>
@@ -150,7 +150,7 @@ export default function LoginScreen() {
               </View>
               <View className='flex-row w-full justify-center gap-4 mt-8'>
                 {/* 회원가입 버튼 */}
-                <Link href='/signup' asChild>
+                <Link href='/auth/signup' asChild>
                   <TouchableOpacity>
                     <AppText
                       className={`text-sm ${

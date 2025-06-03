@@ -13,7 +13,7 @@ export default function ProtectedLayout() {
   }
 
   if (!isLoggedIn) {
-    return <Redirect href='/(auth)' />;
+    return <Redirect href='/login' />;
   }
 
   return (
@@ -21,19 +21,6 @@ export default function ProtectedLayout() {
       <Stack.Screen
         name='(tabs)'
         options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name='modal'
-        options={{
-          presentation: 'modal',
-        }}
-      />
-      <Stack.Screen
-        name='modal-with-stack'
-        options={{
-          presentation: 'modal',
           headerShown: false,
         }}
       />

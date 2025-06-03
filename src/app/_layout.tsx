@@ -1,4 +1,4 @@
-import { AuthProvider } from '@/context/authProvider';
+import { AuthProvider } from '@/context/authContext';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { queryClient } from '@/utils/queryClinet';
 import {
@@ -16,10 +16,6 @@ import '../../global.css';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  // 카카오 sdk 초기화
-  // useEffect(() => {
-  //   initializeKakaoSDK('KAKAO_NATIVE_APP_KEY');
-  // });
   const [fontsLoaded] = useFonts({
     Pretendard: require('../../assets/fonts/Pretendard-Regular.otf'),
     'Pretendard-Thin': require('../../assets/fonts/Pretendard-Thin.otf'),
@@ -59,7 +55,14 @@ export default function RootLayout() {
               }}
             />
             <Stack.Screen
-              name='(auth)'
+              name='login'
+              options={{
+                headerShown: false,
+                animation: 'none',
+              }}
+            />
+            <Stack.Screen
+              name='auth'
               options={{
                 headerShown: false,
                 animation: 'none',
