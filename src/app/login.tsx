@@ -1,11 +1,16 @@
 import { AppText } from '@/components/AppText';
 import GoogleLoginButton from '@/components/GoogleLoginButton';
-
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { initializeKakaoSDK } from '@react-native-kakao/core';
+import { login } from '@react-native-kakao/user';
 import { Link } from 'expo-router';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { useEffect } from 'react';
+import { Button, Text, TouchableOpacity, View } from 'react-native';
 
 export default function LoginScrren() {
+  useEffect(() => {
+    initializeKakaoSDK('5fea4df3166b27696a240ee97664830f');
+  });
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
 
@@ -24,6 +29,12 @@ export default function LoginScrren() {
         </View>
       </View>
       <View className='flex-col gap-4'>
+        <Button
+          title={'login'}
+          onPress={() => {
+            login().then(console.log);
+          }}
+        />
         <GoogleLoginButton onPress={handleGoogleLogin} />
         <Link href='/auth/login' asChild>
           <TouchableOpacity
