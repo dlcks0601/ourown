@@ -5,7 +5,11 @@ import React from 'react';
 export default function BottomTabsLayout() {
   return (
     <Tabs
-      screenOptions={{ tabBarActiveTintColor: 'teal' }}
+      screenOptions={{
+        tabBarActiveTintColor: 'black',
+        tabBarShowLabel: false,
+        headerShown: false,
+      }}
       backBehavior='order'
     >
       <Tabs.Screen
@@ -13,7 +17,7 @@ export default function BottomTabsLayout() {
         options={{
           title: 'Home',
           headerShown: false,
-          tabBarLabel: 'Index',
+          tabBarLabel: '홈',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
               name='numeric-1-box-outline'

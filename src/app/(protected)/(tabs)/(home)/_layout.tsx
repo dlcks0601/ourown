@@ -8,8 +8,8 @@ export default function Layout() {
         options={{ title: 'Home', headerShown: false }}
       />
       <Stack.Screen
-        name='home-nested'
-        options={{ title: 'HomeNested', headerShown: false }}
+        name='todo-setting'
+        options={{ title: 'todoSetting', headerShown: false }}
       />
     </Stack>
   );

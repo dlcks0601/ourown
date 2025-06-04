@@ -1,8 +1,7 @@
-import { AppText } from '@/components/AppText';
-import { Button } from '@/components/Button';
+import Todo from '@/components/Todo';
 import { useAuthStore } from '@/store/authStore';
-import { Link, useRouter } from 'expo-router';
-import { Alert, Text, View } from 'react-native';
+import { useRouter } from 'expo-router';
+import { Alert, View } from 'react-native';
 
 export default function IndexScreen() {
   const router = useRouter();
@@ -29,15 +28,7 @@ export default function IndexScreen() {
 
   return (
     <View className='justify-center flex-1 p-4'>
-      <AppText center>Index Screen</AppText>
-      <Link href='/home-nested' push asChild>
-        <Button title='Push to /home-nested' />
-      </Link>
-
-      <Text>{user.nickname}</Text>
-
-      <Button title='로그아웃' theme='secondary' onPress={handleLogout} />
-      {/* https://reactnative.dev/docs/modal */}
+      <Todo />
     </View>
   );
 }

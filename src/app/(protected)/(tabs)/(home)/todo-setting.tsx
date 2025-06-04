@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native';
 
-export default function HomeNested() {
+export default function todoSettingScreen() {
   return (
     <View>
       <Text>HomeNested</Text>
