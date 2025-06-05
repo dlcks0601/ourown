@@ -1,14 +1,24 @@
+import { useAuthStore } from '@/store/authStore';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { Tabs } from 'expo-router';
 import React from 'react';
+import { Image, useColorScheme } from 'react-native';
 
 export default function BottomTabsLayout() {
+  const { user } = useAuthStore();
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === 'dark';
+
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: 'black',
+        tabBarActiveTintColor: isDark ? 'white' : 'black',
+        tabBarInactiveTintColor: isDark ? 'gray' : 'gray',
         tabBarShowLabel: false,
         headerShown: false,
+        tabBarStyle: {
+          backgroundColor: isDark ? 'black' : 'white',
+        },
       }}
       backBehavior='order'
     >
@@ -56,19 +66,17 @@ export default function BottomTabsLayout() {
         }}
       />
       <Tabs.Screen
-        name='fourth'
+        name='mypage'
         options={{
-          tabBarBadge: 2,
           tabBarBadgeStyle: {
             backgroundColor: 'tomato',
             color: 'white',
           },
           title: 'Fourth',
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons
-              name='numeric-4-box-outline'
-              size={size}
-              color={color}
+          tabBarIcon: () => (
+            <Image
+              source={{ uri: user.profileUrl }}
+              className={`w-8 h-8 rounded-full border-[0.5px] border-gray-400`}
             />
           ),
         }}

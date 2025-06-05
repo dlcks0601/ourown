@@ -1,34 +1,26 @@
+import Calender from '@/components/CoupleCalendar';
 import Todo from '@/components/Todo';
-import { useAuthStore } from '@/store/authStore';
 import { useRouter } from 'expo-router';
-import { Alert, View } from 'react-native';
+import React from 'react';
+import { useColorScheme, View } from 'react-native';
+
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function IndexScreen() {
   const router = useRouter();
-  const { logOut, user } = useAuthStore();
-
-  // https://reactnative.dev/docs/alert
-
-  const handleLogout = () => {
-    Alert.alert('로그아웃', '정말 로그아웃 하시겠습니까?', [
-      {
-        text: '취소',
-        style: 'cancel',
-      },
-      {
-        text: '로그아웃',
-        style: 'destructive',
-        onPress: () => {
-          logOut();
-          router.replace('/login');
-        },
-      },
-    ]);
-  };
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === 'dark';
 
   return (
-    <View className='justify-center flex-1 p-4'>
-      <Todo />
-    </View>
+    <SafeAreaView className={`flex-1 ${isDark ? 'bg-black' : 'bg-white'}`}>
+      <View className='flex-col gap-4'>
+        <View className={`p-4 ${isDark ? 'bg-black' : 'bg-white'}`}>
+          <Todo />
+        </View>
+        <View>
+          <Calender />
+        </View>
+      </View>
+    </SafeAreaView>
   );
 }

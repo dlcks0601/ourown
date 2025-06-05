@@ -9,7 +9,11 @@ export default function Layout() {
       />
       <Stack.Screen
         name='todo-setting'
-        options={{ title: 'todoSetting', headerShown: false }}
+        options={{ title: 'TodoSetting', headerShown: false }}
+      />
+      <Stack.Screen
+        name='todo-detail'
+        options={{ title: 'TodoDetail', headerShown: false }}
       />
     </Stack>
   );

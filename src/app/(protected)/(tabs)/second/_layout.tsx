@@ -9,7 +9,10 @@ export default function Layout() {
         animation: pathname.startsWith('/second') ? 'default' : 'none',
       }}
     >
-      <Stack.Screen name='index' options={{ title: 'Second' }} />
+      <Stack.Screen
+        name='index'
+        options={{ title: 'Second', headerShown: false }}
+      />
       <Stack.Screen name='nested' options={{ title: 'Second Nested' }} />
       <Stack.Screen
         name='also-nested'
