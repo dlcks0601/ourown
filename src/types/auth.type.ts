@@ -9,6 +9,9 @@ export interface MessageResponse {
 }
 
 export interface User {
+  id: number;
+  code: string;
+  coupleId: number;
   email: string;
   nickname: string;
   profileUrl: string;

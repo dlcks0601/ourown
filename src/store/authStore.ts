@@ -35,6 +35,9 @@ export const useAuthStore = create<AuthState>()(
       isLoggedIn: false,
       isReady: false,
       user: {
+        id: 0,
+        code: '',
+        coupleId: 0,
         email: '',
         nickname: '',
         profileUrl: '',
@@ -54,7 +57,14 @@ export const useAuthStore = create<AuthState>()(
       logOut: () => {
         set({
           isLoggedIn: false,
-          user: { nickname: '', email: '', profileUrl: '' },
+          user: {
+            id: 0,
+            code: '',
+            coupleId: 0,
+            email: '',
+            nickname: '',
+            profileUrl: '',
+          },
           jwt: { accessToken: '', refreshToken: '' },
         });
       },

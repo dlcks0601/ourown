@@ -5,7 +5,7 @@ export const postSecritycode = async (
   securityCode: string
 ): Promise<LoginResponse> => {
   const response = await fetcher<LoginResponse>({
-    url: 'https://duo.yeol.store/auth/google/verify',
+    url: '/auth/google/verify',
     method: 'POST',
     data: {
       securityCode,
