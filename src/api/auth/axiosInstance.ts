@@ -42,17 +42,17 @@ axiosInstance.interceptors.response.use(
           code: refreshToken,
         });
 
-        const { accessToken, refreshToken: newRefreshToken } =
+        const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
           response.data.jwt;
         console.log('✅ 새로운 토큰 발급 성공');
 
         logIn(useAuthStore.getState().user, {
-          accessToken,
+          accessToken: newAccessToken,
           refreshToken: newRefreshToken,
         });
         console.log('💾 새로운 토큰 저장 완료');
 
-        originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+        originalRequest.headers.Authorization = `Bearer ${jwt.accessToken}`;
         console.log('🔄 실패했던 요청 재시도');
         return axiosInstance(originalRequest);
       } catch (refreshError) {
