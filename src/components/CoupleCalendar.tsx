@@ -1,4 +1,8 @@
 import dayjs from 'dayjs';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
 import React, { useRef, useState } from 'react';
 import {
   Dimensions,
@@ -9,11 +13,15 @@ import {
   View,
 } from 'react-native';
 
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.extend(isSameOrAfter);
+dayjs.extend(isSameOrBefore);
+
+const today = dayjs().tz('Asia/Seoul').startOf('day').toDate();
 const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
-
-// 화면 높이의 52%를 캘린더 높이로 설정 (6주 기준)
 const CALENDAR_HEIGHT = SCREEN_HEIGHT * 0.59;
 const ROW_HEIGHT = CALENDAR_HEIGHT / 6;
 
@@ -28,7 +36,6 @@ const isSameDay = (d1: Date, d2: Date) =>
 function generateCalendarMatrix(year: number, month: number) {
   const firstDay = new Date(year, month, 1).getDay();
   const lastDate = new Date(year, month + 1, 0).getDate();
-
   const calendarDays: (Date | null)[] = [];
 
   for (let i = 0; i < firstDay; i++) calendarDays.push(null);
@@ -40,15 +47,20 @@ function generateCalendarMatrix(year: number, month: number) {
   for (let i = 0; i < calendarDays.length; i += 7) {
     weeks.push(calendarDays.slice(i, i + 7));
   }
-
   return weeks;
 }
 
-// 샘플 일정 데이터
-const scheduleMap: Record<string, string[]> = {
-  // '2025-06-05': ['미팅', '회의', '야옹'],
-  '2025-06-20': ['미팅', '회의', '야옹'],
+type Schedule = {
+  title: string;
+  start: string; // YYYY-MM-DD
+  end: string; // YYYY-MM-DD
 };
+
+const scheduleList: Schedule[] = [
+  { title: '미팅', start: '2025-06-19', end: '2025-06-21' },
+  { title: '야옹', start: '2025-06-12', end: '2025-06-12' },
+  { title: '야옹', start: '2025-07-12', end: '2025-07-12' },
+];
 
 function CalendarMonth({
   date,
@@ -61,10 +73,8 @@ function CalendarMonth({
 }) {
   const year = date.getFullYear();
   const month = date.getMonth();
-  const today = normalizeDate(new Date());
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
-
   const weeks = generateCalendarMatrix(year, month);
 
   return (
@@ -108,16 +118,21 @@ function CalendarMonth({
             const isToday = dateItem && isSameDay(dateItem, today);
             const isSelected =
               dateItem && selectedDay && isSameDay(dateItem, selectedDay);
-            const dateStr = dateItem
-              ? dayjs(dateItem).format('YYYY-MM-DD')
-              : '';
-            const schedules = dateItem && scheduleMap[dateStr];
+
+            const dayStr = dateItem ? dayjs(dateItem).format('YYYY-MM-DD') : '';
+
+            const schedules = scheduleList.filter(
+              (item) =>
+                dateItem &&
+                dayjs(dayStr).isSameOrAfter(item.start) &&
+                dayjs(dayStr).isSameOrBefore(item.end)
+            );
 
             return (
               <TouchableOpacity
                 key={j}
                 onPress={() => dateItem && onSelect(dateItem)}
-                className={`flex-1 items-center px-1 rounded-xl justify-start ${
+                className={`flex-1 items-center rounded-xl justify-start ${
                   isSelected
                     ? isDark
                       ? 'bg-white'
@@ -147,45 +162,35 @@ function CalendarMonth({
                   {dateItem ? dateItem.getDate() : ''}
                 </Text>
 
-                {/* 일정 렌더링 */}
-                {schedules && (
-                  <>
-                    {schedules.slice(0, 2).map((title, idx) => (
-                      <View
-                        key={idx}
-                        className={`mt-1 w-full px-1 py-0.5 rounded bg-purple-200 ${
-                          isSelected ? (isDark ? 'bg-black' : 'bg-white') : ''
-                        }`}
-                      >
-                        <Text
-                          className={`text-xs ${
-                            isSelected
-                              ? isDark
-                                ? 'text-white'
-                                : 'text-black'
-                              : 'text-purple-800'
-                          }`}
-                        >
-                          {title}
-                        </Text>
-                      </View>
-                    ))}
+                {/* 일정 블럭 */}
+                {schedules.map((item, idx) => {
+                  const isStart = dayjs(dayStr).isSame(item.start);
+                  const isEnd = dayjs(dayStr).isSame(item.end);
+                  const isMiddle =
+                    dayjs(dayStr).isAfter(item.start) &&
+                    dayjs(dayStr).isBefore(item.end);
 
-                    {schedules.length > 2 && (
+                  const bgColor = 'bg-[#ea9cd5b3]';
+                  let rounded = '';
+                  if (isStart && isEnd) rounded = 'rounded-full';
+                  else if (isStart) rounded = 'rounded-l-full';
+                  else if (isEnd) rounded = 'rounded-r-full';
+
+                  return (
+                    <View
+                      key={idx}
+                      className={`mt-1 w-full px-1 py-0.5 ${bgColor} ${rounded}`}
+                    >
                       <Text
-                        className={`text-xs font-bold mt-0.5 ${
-                          isSelected
-                            ? isDark
-                              ? 'text-black'
-                              : 'text-white'
-                            : 'text-gray-500'
+                        className={`text-xs px-1 font-medium ${
+                          isStart ? 'text-white' : 'text-transparent'
                         }`}
                       >
-                        +{schedules.length - 2}
+                        {item.title}
                       </Text>
-                    )}
-                  </>
-                )}
+                    </View>
+                  );
+                })}
               </TouchableOpacity>
             );
           })}
@@ -195,9 +200,22 @@ function CalendarMonth({
   );
 }
 
-export default function SwipeCalendar() {
+type CoupleCalendarProps = {
+  selectedDate?: Date | null;
+  onSelectDate?: (d: Date) => void;
+};
+
+export default function CoupleCalendar({
+  selectedDate: externalSelectedDate,
+  onSelectDate: externalOnSelectDate,
+}: CoupleCalendarProps) {
+  const [internalSelectedDate, setInternalSelectedDate] = useState<Date | null>(
+    externalSelectedDate ?? new Date()
+  );
+  const selectedDate = externalSelectedDate ?? internalSelectedDate;
+  const onSelectDate = externalOnSelectDate ?? setInternalSelectedDate;
+
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [selectedDay, setSelectedDay] = useState<Date | null>(null);
   const flatListRef = useRef<FlatList>(null);
 
   const getMonthPages = () => [
@@ -213,7 +231,6 @@ export default function SwipeCalendar() {
     } else if (index === 2) {
       setCurrentMonth((prev) => dayjs(prev).add(1, 'month').toDate());
     }
-
     setTimeout(() => {
       flatListRef.current?.scrollToIndex({ index: 1, animated: false });
     }, 100);
@@ -238,8 +255,8 @@ export default function SwipeCalendar() {
         renderItem={({ item }) => (
           <CalendarMonth
             date={item}
-            selectedDay={selectedDay}
-            onSelect={setSelectedDay}
+            selectedDay={selectedDate}
+            onSelect={onSelectDate}
           />
         )}
       />

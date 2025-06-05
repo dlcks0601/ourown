@@ -1,4 +1,4 @@
-import Calender from '@/components/CoupleCalendar';
+import CoupleCalendar from '@/components/CoupleCalendar';
 import Todo from '@/components/Todo';
 import { useRouter } from 'expo-router';
 import React from 'react';
@@ -18,7 +18,7 @@ export default function IndexScreen() {
           <Todo />
         </View>
         <View>
-          <Calender />
+          <CoupleCalendar />
         </View>
       </View>
     </SafeAreaView>
