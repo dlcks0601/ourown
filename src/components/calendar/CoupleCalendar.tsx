@@ -331,11 +331,7 @@ function CalendarMonth({
                 })}
 
                 {daySchedules.length > limitedSchedules.length && (
-                  <Text
-                    className={`mt-1 text-xs ${
-                      isDark ? 'text-black' : 'text-white'
-                    }`}
-                  >
+                  <Text className={`mt-1 text-xs ${textColor}`}>
                     +{daySchedules.length - limitedSchedules.length}
                   </Text>
                 )}
