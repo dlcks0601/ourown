@@ -151,19 +151,21 @@ export default function Second() {
                   isDark ? 'bg-white' : 'bg-black'
                 } mr-4`}
               />
-              <TextInput
-                placeholder='제목'
-                placeholderTextColor={isDark ? '#999' : '#ccc'}
-                returnKeyType='done'
-                onChangeText={setTitle}
-                style={{
-                  color: isDark ? '#ffffff' : '#000000',
-                  fontSize: 28,
-                  fontWeight: 'bold',
-                  width: 'auto',
-                  height: 30,
-                }}
-              />
+              <View className='w-full'>
+                <TextInput
+                  placeholder='제목'
+                  placeholderTextColor={isDark ? '#999' : '#ccc'}
+                  returnKeyType='done'
+                  onChangeText={setTitle}
+                  style={{
+                    color: isDark ? '#ffffff' : '#000000',
+                    fontSize: 28,
+                    fontWeight: 'bold',
+                    width: 'auto',
+                    height: 30,
+                  }}
+                />
+              </View>
             </View>
 
             {/* 일정 시간 */}
