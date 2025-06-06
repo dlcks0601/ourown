@@ -1,5 +1,7 @@
-import CoupleCalendar from '@/components/CoupleCalendar';
+import CoupleCalendar from '@/components/calendar/CoupleCalendar';
 import CalendarFooter from '@/components/CoupleCalendarFooter';
+import { usePostCalendarMutation } from '@/hooks/query/calendar.query';
+import { useAuthStore } from '@/store/authStore';
 import { Entypo, EvilIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import DateTimePicker, {
   DateTimePickerEvent,
@@ -26,12 +28,18 @@ export default function Second() {
   const router = useRouter();
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
-
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+  const { user } = useAuthStore();
+  const [title, setTitle] = useState('');
+  const currentYear = dayjs(selectedDate).year();
+  const currentMonth = dayjs(selectedDate).month() + 1;
+
+  const { postCalendar } = usePostCalendarMutation();
+
   const [modalVisible, setModalVisible] = useState(false);
   const [showPicker, setShowPicker] = useState(false);
   const [pickerMode, setPickerMode] = useState<'start' | 'end'>('start');
-  const [isAllDay, setIsAllDay] = useState(false); // ✅ 하루종일 상태
+  const [isAllDay, setIsAllDay] = useState(false);
 
   const [startTime, setStartTime] = useState<Date>(new Date());
   const [endTime, setEndTime] = useState<Date>(
@@ -65,6 +73,30 @@ export default function Second() {
     };
   }, []);
 
+  const handleSubmit = () => {
+    if (!title || !selectedDate || !user?.coupleId) return;
+
+    const start = isAllDay
+      ? dayjs(selectedDate).startOf('day').toISOString()
+      : dayjs(startTime).toISOString();
+
+    const end = isAllDay
+      ? dayjs(selectedDate).endOf('day').toISOString()
+      : dayjs(endTime).toISOString();
+
+    postCalendar({
+      coupleId: user.coupleId,
+      title,
+      start,
+      end,
+    });
+
+    // 초기화
+    setModalVisible(false);
+    setTitle('');
+    setIsAllDay(false);
+  };
+
   const handleTimeChange = (_: DateTimePickerEvent, date?: Date) => {
     if (Platform.OS === 'android') setShowPicker(false);
     if (!date) return;
@@ -84,10 +116,20 @@ export default function Second() {
           onSelectDate={setSelectedDate}
           selectedDate={selectedDate}
         />
-        <CalendarFooter
-          selectedDate={selectedDate}
-          onAddEventPress={() => setModalVisible(true)}
-        />
+
+        <View>
+          <CalendarFooter
+            selectedDate={selectedDate}
+            onAddEventPress={() => {
+              if (selectedDate) {
+                const base = new Date(selectedDate);
+                setStartTime(base);
+                setEndTime(dayjs(base).add(1, 'hour').toDate());
+              }
+              setModalVisible(true);
+            }}
+          />
+        </View>
       </View>
 
       <Modal
@@ -113,10 +155,13 @@ export default function Second() {
                 placeholder='제목'
                 placeholderTextColor={isDark ? '#999' : '#ccc'}
                 returnKeyType='done'
+                onChangeText={setTitle}
                 style={{
                   color: isDark ? '#ffffff' : '#000000',
                   fontSize: 28,
                   fontWeight: 'bold',
+                  width: 'auto',
+                  height: 30,
                 }}
               />
             </View>
@@ -194,7 +239,7 @@ export default function Second() {
               </View>
 
               {/* 하루 종일 토글 */}
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 onPress={() => setIsAllDay((prev) => !prev)}
                 className={`rounded-full px-6 py-2 ${
                   isAllDay
@@ -219,7 +264,7 @@ export default function Second() {
                 >
                   하루 종일
                 </Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
           </View>
 
@@ -228,7 +273,7 @@ export default function Second() {
             <View className='items-center justify-center'>
               <DateTimePicker
                 value={pickerMode === 'start' ? startTime : endTime}
-                mode={isAllDay ? 'date' : 'datetime'} // ✅ 하루종일이면 date만
+                mode={isAllDay ? 'date' : 'datetime'}
                 display={Platform.OS === 'ios' ? 'spinner' : 'default'}
                 onChange={handleTimeChange}
                 themeVariant={isDark ? 'dark' : 'light'}
@@ -243,6 +288,7 @@ export default function Second() {
             style={{ bottom: buttonBottom }}
           >
             <TouchableOpacity
+              onPress={handleSubmit}
               className={`${
                 isDark ? 'bg-white' : 'bg-[#262626]'
               } w-14 h-14 rounded-full items-center justify-center`}

@@ -1,9 +1,9 @@
-import { Button } from '@/components/Button';
-import { useRouter } from 'expo-router';
-import { Text, View } from 'react-native';
+import TestCalendar from '@/components/calendar/TestCalendar';
+import { useState } from 'react';
+import { View } from 'react-native';
 
 export default function ThirdScreen() {
-  const router = useRouter();
+  const [selectedDate, setSelectedDate] = useState(new Date());
   return (
     <View
       style={{
@@ -12,15 +12,9 @@ export default function ThirdScreen() {
         alignItems: 'center',
       }}
     >
-      <Text className='text-red-500'>
-        Edit app/index.tsx to edit this screen.
-      </Text>
-      <Button
-        title='Back'
-        theme='secondary'
-        onPress={() => {
-          router.back();
-        }}
+      <TestCalendar
+        selectedDate={selectedDate}
+        onSelectDate={setSelectedDate}
       />
     </View>
   );
