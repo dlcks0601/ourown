@@ -1,6 +1,5 @@
-import TestCalendar from '@/components/calendar/TestCalendar';
 import { useState } from 'react';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 
 export default function ThirdScreen() {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -12,10 +11,7 @@ export default function ThirdScreen() {
         alignItems: 'center',
       }}
     >
-      <TestCalendar
-        selectedDate={selectedDate}
-        onSelectDate={setSelectedDate}
-      />
+      <Text>안녕 </Text>
     </View>
   );
 }
