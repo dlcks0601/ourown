@@ -120,7 +120,7 @@ function assignLineIndexes(schedules: Schedule[]): Schedule[] {
   return result;
 }
 
-// 샘플 일정 목록 (필요시 외부에서 props로 받아올 수도 있습니다)
+// 샘플 일정 목록 (필요시 외부에서 props로 받아올 수도 있습니다)ㅋ
 const rawSchedules: Schedule[] = [
   { title: '미팅', start: '2025-06-04', end: '2025-06-05' },
   { title: '미팅', start: '2025-06-05', end: '2025-06-06' },

@@ -10,8 +10,13 @@ import { Button, Text, TouchableOpacity, View } from 'react-native';
 
 export default function LoginScrren() {
   useEffect(() => {
-    initializeKakaoSDK(KAKAO_NATIVE_APP_KEY!);
-  });
+    if (!KAKAO_NATIVE_APP_KEY) {
+      console.warn('KAKAO_NATIVE_APP_KEY가 설정되지 않았습니다.');
+      return;
+    }
+
+    initializeKakaoSDK(KAKAO_NATIVE_APP_KEY);
+  }, []);
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
 
