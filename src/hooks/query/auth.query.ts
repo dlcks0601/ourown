@@ -14,7 +14,7 @@ export const useAuthMutation = () => {
       await logIn(user, jwt, partner);
       if (isNew) {
         router.navigate('/auth/nickname');
-      } else router.navigate('/(protected)/(tabs)/(home)');
+      } else router.replace('/(protected)/(tabs)/(home)');
     },
   });
   return { googleLogin: mutate };
