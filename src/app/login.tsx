@@ -4,7 +4,7 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import { KAKAO_NATIVE_APP_KEY } from '@/utils/constants';
 import { initializeKakaoSDK } from '@react-native-kakao/core';
 import { login } from '@react-native-kakao/user';
-import { Link } from 'expo-router';
+import { router } from 'expo-router';
 import { useEffect } from 'react';
 import { Button, Text, TouchableOpacity, View } from 'react-native';
 
@@ -42,17 +42,17 @@ export default function LoginScrren() {
           }}
         />
         <GoogleLoginButton onPress={handleGoogleLogin} />
-        <Link href='/auth/login' asChild>
-          <TouchableOpacity
-            className={`px-10 py-6 items-center justify-center rounded-md ${
-              isDark ? 'bg-white' : 'bg-black'
-            }`}
-          >
-            <Text className={isDark ? 'text-black' : 'text-white'}>
-              이메일 계정으로 시작하기
-            </Text>
-          </TouchableOpacity>
-        </Link>
+
+        <TouchableOpacity
+          onPress={() => router.replace('/auth/login')}
+          className={`px-10 py-6 items-center justify-center rounded-md ${
+            isDark ? 'bg-white' : 'bg-black'
+          }`}
+        >
+          <Text className={isDark ? 'text-black' : 'text-white'}>
+            이메일 계정으로 시작하기
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
