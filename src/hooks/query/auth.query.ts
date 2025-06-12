@@ -1,4 +1,4 @@
-import { postSecritycode, signup } from '@/api/auth/auth.api';
+import { kakaoLogin, postSecritycode, signup } from '@/api/auth/auth.api';
 import { useAuthStore } from '@/store/authStore';
 import { SignupResponse } from '@/types/auth.type';
 import { useMutation } from '@tanstack/react-query';
@@ -10,8 +10,8 @@ export const useAuthMutation = () => {
   const { mutate } = useMutation({
     mutationFn: (securityCode: string) => postSecritycode(securityCode),
     onSuccess: async (data) => {
-      const { user, jwt, isNew } = data;
-      await logIn(user, jwt);
+      const { user, jwt, isNew, partner } = data;
+      await logIn(user, jwt, partner);
       if (isNew) {
         router.navigate('/auth/nickname');
       } else router.navigate('/(protected)/(tabs)/(home)');
@@ -27,10 +27,25 @@ export const useSignupMutation = () => {
     mutationFn: (data: { email: string; password: string }) =>
       signup(data.email, data.password),
     onSuccess: async (data: SignupResponse) => {
-      const { user, jwt } = data;
-      await logIn(user, jwt);
+      const { user, jwt, partner } = data;
+      await logIn(user, jwt, partner);
       router.push('/auth/nickname');
     },
   });
   return { signup: mutate };
+};
+
+export const useKakaoMutation = () => {
+  const { logIn } = useAuthStore();
+  const { mutate } = useMutation({
+    mutationFn: (accessToken: string) => kakaoLogin(accessToken),
+    onSuccess: async (data) => {
+      const { user, jwt, isNew, partner } = data;
+      await logIn(user, jwt, partner);
+      if (isNew) {
+        router.navigate('/auth/nickname');
+      } else router.navigate('/(protected)/(tabs)/(home)');
+    },
+  });
+  return { kakaoLoginMutation: mutate };
 };
