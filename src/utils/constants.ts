@@ -17,4 +17,4 @@ export const APP_SCHEME = process.env.EXPO_PUBLIC_SCHEME;
 
 // Kakao OAuth Constants
 export const KAKAO_NATIVE_APP_KEY =
-  process.env.EXPO_PUBLIC_KAKAO_NATIVE_APP_KEY!;
+  process.env.EXPO_PUBLIC_KAKAO_NATIVE_APP_KEY;

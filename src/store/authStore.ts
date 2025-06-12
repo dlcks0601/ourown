@@ -1,4 +1,4 @@
-import { AuthState, TokenResponse, User } from '@/types/auth.type';
+import { AuthState, Partner, TokenResponse, User } from '@/types/auth.type';
 import * as SecureStore from 'expo-secure-store';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
@@ -46,8 +46,13 @@ export const useAuthStore = create<AuthState>()(
         accessToken: '',
         refreshToken: '',
       },
-      logIn: (user: User, jwt: TokenResponse) => {
-        set({ isLoggedIn: true, user, jwt });
+      partner: {
+        id: 0,
+        nickname: '',
+        profileUrl: '',
+      },
+      logIn: (user: User, jwt: TokenResponse, partner: Partner) => {
+        set({ isLoggedIn: true, user, jwt, partner });
       },
       updateNickname: (nickname: string) => {
         set((state) => ({
@@ -66,6 +71,11 @@ export const useAuthStore = create<AuthState>()(
             profileUrl: '',
           },
           jwt: { accessToken: '', refreshToken: '' },
+          partner: {
+            id: 0,
+            nickname: '',
+            profileUrl: '',
+          },
         });
       },
     }),

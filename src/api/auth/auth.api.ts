@@ -39,3 +39,14 @@ export const signup = async (email: string, password: string) => {
   });
   return response.data;
 };
+
+export const kakaoLogin = async (accessToken: string) => {
+  const response = await fetcher<LoginResponse>({
+    url: 'auth/kakao',
+    method: 'POST',
+    data: {
+      accessToken,
+    },
+  });
+  return response.data;
+};

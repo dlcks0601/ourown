@@ -17,17 +17,27 @@ export interface User {
   profileUrl: string;
 }
 
+export interface Partner {
+  id: number;
+  nickname: string;
+  profileUrl: string;
+  code?: string;
+}
+
 export interface LoginResponse {
   isNew: boolean;
   jwt: TokenResponse;
   message: MessageResponse;
   user: User;
+  partner: Partner;
 }
 
 export interface SignupResponse {
+  isNew: boolean;
+  jwt: TokenResponse;
   message: MessageResponse;
   user: User;
-  jwt: TokenResponse;
+  partner: Partner;
 }
 
 export interface SignupState {
@@ -44,7 +54,8 @@ export interface AuthState {
   isReady: boolean;
   user: User;
   jwt: TokenResponse;
-  logIn: (user: User, jwt: TokenResponse) => void;
+  partner: Partner;
+  logIn: (user: User, jwt: TokenResponse, partner: Partner) => void;
   updateNickname: (nickname: string) => void;
   logOut: () => void;
 }
