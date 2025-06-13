@@ -26,7 +26,7 @@ export default function TodoDetailScreen() {
 
   return (
     <SafeAreaView className={`flex-1 ${isDark ? 'bg-black' : 'bg-white'}`}>
-      <View className='px-6 pt-6'>
+      <View className='px-6'>
         <Text
           className={`text-3xl font-bold mb-4 ${
             isDark ? 'text-white' : 'text-black'

@@ -13,11 +13,6 @@ export default function Layout() {
         name='index'
         options={{ title: 'Second', headerShown: false }}
       />
-      <Stack.Screen name='nested' options={{ title: 'Second Nested' }} />
-      <Stack.Screen
-        name='also-nested'
-        options={{ title: 'Second Also Nested' }}
-      />
     </Stack>
   );
 }

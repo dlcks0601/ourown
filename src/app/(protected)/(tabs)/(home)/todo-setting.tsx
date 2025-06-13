@@ -1,3 +1,4 @@
+import CheckInput from '@/components/CheckInput';
 import {
   useDeleteTodoMutation,
   useDoneTodoMutation,
@@ -10,7 +11,6 @@ import { useState } from 'react';
 import {
   FlatList,
   Text,
-  TextInput,
   TouchableOpacity,
   useColorScheme,
   View,
@@ -51,7 +51,7 @@ export default function TodoSettingScreen() {
 
   return (
     <SafeAreaView className={`flex-1 ${isDark ? 'bg-black' : 'bg-white'}`}>
-      <View className='px-6 pt-6'>
+      <View className='px-6'>
         <Text
           className={`text-3xl font-bold mb-4 ${
             isDark ? 'text-white' : 'text-black'
@@ -60,28 +60,11 @@ export default function TodoSettingScreen() {
           {user.nickname} Todo
         </Text>
 
-        {/* 입력창 */}
-        <View className='flex-row items-center mb-4'>
-          <TouchableOpacity
-            activeOpacity={1}
-            className='w-6 h-6 border-2 mr-3 border-gray-400 rounded-full'
-          />
-
-          <TextInput
-            // className={`text-sm  ${isDark ? 'text-white' : 'text-black'}`}
-            placeholder='내용을 추가해보세요.'
-            placeholderTextColor={isDark ? '#999' : '#ccc'}
-            value={inputValue}
-            onChangeText={setInputValue}
-            blurOnSubmit={true}
-            onSubmitEditing={handleAdd}
-            returnKeyType='done'
-            style={{
-              color: isDark ? '#ffffff' : '#000000',
-              fontSize: 16,
-            }}
-          />
-        </View>
+        <CheckInput
+          value={inputValue}
+          onChangeText={setInputValue}
+          onSubmit={handleAdd}
+        />
 
         {/* 투두 리스트 */}
         <FlatList

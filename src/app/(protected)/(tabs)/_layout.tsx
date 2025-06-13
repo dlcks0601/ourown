@@ -1,5 +1,5 @@
 import { useAuthStore } from '@/store/authStore';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { Image, useColorScheme } from 'react-native';
@@ -27,13 +27,10 @@ export default function BottomTabsLayout() {
         options={{
           title: 'Home',
           headerShown: false,
+          popToTopOnBlur: true,
           tabBarLabel: '홈',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons
-              name='numeric-1-box-outline'
-              size={size}
-              color={color}
-            />
+            <Ionicons name='heart' size={size} color={color} />
           ),
         }}
       />
@@ -44,11 +41,7 @@ export default function BottomTabsLayout() {
           headerShown: false,
           popToTopOnBlur: true,
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons
-              name='numeric-2-box-outline'
-              size={size}
-              color={color}
-            />
+            <Ionicons name='list-outline' size={size} color={color} />
           ),
         }}
       />
@@ -57,11 +50,7 @@ export default function BottomTabsLayout() {
         options={{
           title: 'Third',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons
-              name='numeric-3-box-outline'
-              size={size}
-              color={color}
-            />
+            <Ionicons name='journal-outline' size={size} color={color} />
           ),
         }}
       />
