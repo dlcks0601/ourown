@@ -1,7 +1,7 @@
-import { setNickname } from '@/api/user/user.api';
+import { fetchCoupleInfo, setNickname } from '@/api/user/user.api';
 import { useAuthStore } from '@/store/authStore';
 import { NicknameUpdateResponse } from '@/types/user.type';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 export const useSetNicknameMutation = () => {
   const { mutate } = useMutation({
@@ -13,4 +13,12 @@ export const useSetNicknameMutation = () => {
   });
 
   return { setNickname: mutate };
+};
+
+export const useGetCoupleInfo = (coupleId: number) => {
+  return useQuery({
+    queryKey: ['couple', coupleId],
+    queryFn: () => fetchCoupleInfo(coupleId),
+    enabled: !!coupleId,
+  });
 };
