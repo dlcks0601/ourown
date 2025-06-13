@@ -1,12 +1,12 @@
 import { AppText } from '@/components/AppText';
 import GoogleLoginButton from '@/components/GoogleLoginButton';
+import KakaoLoginButton from '@/components/KakaoLoginButton';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { KAKAO_NATIVE_APP_KEY } from '@/utils/constants';
 import { initializeKakaoSDK } from '@react-native-kakao/core';
-import { login } from '@react-native-kakao/user';
 import { router } from 'expo-router';
 import { useEffect } from 'react';
-import { Button, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 export default function LoginScrren() {
   useEffect(() => {
@@ -21,6 +21,7 @@ export default function LoginScrren() {
   const isDark = colorScheme === 'dark';
 
   const handleGoogleLogin = () => {};
+  const handleKakaoLogin = () => {};
 
   return (
     <View
@@ -35,17 +36,12 @@ export default function LoginScrren() {
         </View>
       </View>
       <View className='flex-col gap-4'>
-        <Button
-          title={'login'}
-          onPress={() => {
-            login().then(console.log);
-          }}
-        />
+        <KakaoLoginButton onPress={handleKakaoLogin} />
         <GoogleLoginButton onPress={handleGoogleLogin} />
 
         <TouchableOpacity
           onPress={() => router.replace('/auth/login')}
-          className={`px-10 py-6 items-center justify-center rounded-md ${
+          className={`w-full min-h-[56px] h-auto px-10 py-6 items-center justify-center rounded-md ${
             isDark ? 'bg-white' : 'bg-black'
           }`}
         >

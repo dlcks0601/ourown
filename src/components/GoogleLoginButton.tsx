@@ -48,7 +48,7 @@ export default function GoogleLoginButton({ onPress }: GoogleLoginButtonProps) {
 
   return (
     <TouchableOpacity
-      className={`px-10 py-6 items-center justify-center rounded-md ${
+      className={`w-full px-10 py-4 items-center justify-center rounded-md min-h-[56px] h-auto ${
         isDark ? 'bg-[#000000]' : 'bg-[#ffffff]'
       } border-[0.5px] ${isDark ? 'border-[#8E918F]' : 'border-[#000000]'}`}
       onPress={startGoogleLogin}

@@ -48,5 +48,6 @@ export const kakaoLogin = async (accessToken: string) => {
       accessToken,
     },
   });
+  console.log('카카오 로그인', response.data);
   return response.data;
 };
