@@ -50,75 +50,75 @@ export default function TodoSettingScreen() {
   };
 
   return (
-    <SafeAreaView className={`flex-1 ${isDark ? 'bg-black' : 'bg-white'}`}>
-      <View className='px-6'>
-        <Text
-          className={`text-3xl font-bold mb-4 ${
-            isDark ? 'text-white' : 'text-black'
-          }`}
-        >
-          {user.nickname} Todo
-        </Text>
+    <SafeAreaView
+      edges={['top']}
+      className={`flex-1 px-4 ${isDark ? 'bg-black' : 'bg-white'}`}
+    >
+      <Text
+        className={`text-3xl font-bold mb-4 ${
+          isDark ? 'text-white' : 'text-black'
+        }`}
+      >
+        {user.nickname} Todo
+      </Text>
 
-        <CheckInput
-          value={inputValue}
-          onChangeText={setInputValue}
-          onSubmit={handleAdd}
-        />
+      {/* 투두 리스트 */}
+      <FlatList
+        data={myTodos}
+        keyExtractor={(item) => item.id.toString()}
+        scrollEnabled={myTodos.length > 16}
+        showsVerticalScrollIndicator={false}
+        ListHeaderComponent={
+          <CheckInput
+            value={inputValue}
+            onChangeText={setInputValue}
+            onSubmit={handleAdd}
+          />
+        }
+        renderItem={({ item }) => {
+          const isSelected = item.isDone;
 
-        {/* 투두 리스트 */}
-        <FlatList
-          data={myTodos}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => {
-            const isSelected = item.isDone;
-
-            return (
-              <View className='flex-row items-center justify-between'>
-                <View className='flex-row items-center'>
-                  <TouchableOpacity
-                    onPress={() => doneTodo({ todoId: item.id })}
-                    className={`w-6 h-6 rounded-full border-2 mr-3 items-center justify-center ${
-                      isSelected
-                        ? 'border-red-500 bg-red-500'
-                        : 'border-gray-400'
-                    }`}
-                  />
-
-                  <Text
-                    numberOfLines={1}
-                    className={`text-lg ${
-                      isSelected
-                        ? isDark
-                          ? 'text-gray-300'
-                          : 'text-gray-400'
-                        : isDark
-                        ? 'text-white'
-                        : 'text-black'
-                    }`}
-                  >
-                    {item.content}
-                  </Text>
-                </View>
-
-                {/* 삭제 버튼 */}
+          return (
+            <View className='flex-row items-center justify-between pt-2 pb-2'>
+              <View className='flex-row items-center'>
                 <TouchableOpacity
-                  onPress={() => deleteTodo({ todoId: item.id })}
+                  onPress={() => doneTodo({ todoId: item.id })}
+                  className={`w-6 h-6 rounded-full border-2 mr-3 items-center justify-center ${
+                    isSelected ? 'border-red-500 bg-red-500' : 'border-gray-400'
+                  }`}
+                />
+
+                <Text
+                  numberOfLines={1}
+                  className={`text-lg ${
+                    isSelected
+                      ? isDark
+                        ? 'text-gray-300'
+                        : 'text-gray-400'
+                      : isDark
+                      ? 'text-white'
+                      : 'text-black'
+                  }`}
                 >
-                  <EvilIcons
-                    name='close'
-                    size={20}
-                    color={isDark ? '#fff' : '#000'}
-                  />
-                </TouchableOpacity>
+                  {item.content}
+                </Text>
               </View>
-            );
-          }}
-          ItemSeparatorComponent={() => (
-            <View className='border-b border-gray-200 mb-3 mt-3' />
-          )}
-        />
-      </View>
+
+              {/* 삭제 버튼 */}
+              <TouchableOpacity onPress={() => deleteTodo({ todoId: item.id })}>
+                <EvilIcons
+                  name='close'
+                  size={20}
+                  color={isDark ? '#fff' : '#000'}
+                />
+              </TouchableOpacity>
+            </View>
+          );
+        }}
+        ItemSeparatorComponent={() => (
+          <View className='border-b border-gray-200' />
+        )}
+      />
     </SafeAreaView>
   );
 }

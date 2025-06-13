@@ -19,11 +19,11 @@ export default function CheckInput({
   const isDark = useColorScheme() === 'dark';
 
   return (
-    <View className='flex-row items-center mb-1'>
+    <View className='flex-row items-center mb-2'>
       <TouchableOpacity
         activeOpacity={1}
         className={`w-6 h-6 border-2 mr-3 ${
-          isDark ? 'border-gray-500' : 'border-gray-300'
+          isDark ? 'border-gray-400' : 'border-gray-400'
         }  rounded-full `}
       />
       <TextInput
