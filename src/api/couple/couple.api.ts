@@ -15,7 +15,7 @@ export const getCoupleImage = async (
 };
 
 export const postConnectCouple = async (
-  code: number
+  code: string
 ): Promise<ConnectCoupleResponse> => {
   const response = await fetcher<ConnectCoupleResponse>({
     url: '/user/match',

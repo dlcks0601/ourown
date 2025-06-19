@@ -7,7 +7,7 @@ export const unstable_settings = {
 };
 
 export default function ProtectedLayout() {
-  const { isReady, isLoggedIn, couple } = useAuthStore();
+  const { isReady, isLoggedIn, user } = useAuthStore();
 
   if (!isReady) {
     return null;
@@ -17,8 +17,7 @@ export default function ProtectedLayout() {
     return <Redirect href='/login' />;
   }
 
-  // 커플 정보가 등록되지 않은 경우
-  if (!couple?.anniversary) {
+  if (user && !user.coupleId) {
     return <Redirect href='/auth/couplecode' />;
   }
 

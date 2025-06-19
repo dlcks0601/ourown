@@ -1,3 +1,4 @@
+import { postConnectCouple } from '@/api/couple/couple.api';
 import { fetchCoupleInfo, setNickname } from '@/api/user/user.api';
 import { useAuthStore } from '@/store/authStore';
 import { NicknameUpdateResponse } from '@/types/user.type';
@@ -21,4 +22,17 @@ export const useGetCoupleInfo = (coupleId: number) => {
     queryFn: () => fetchCoupleInfo(coupleId),
     enabled: !!coupleId,
   });
+};
+
+export const useSetConnectCouple = () => {
+  const { updateUser } = useAuthStore.getState();
+
+  const { mutate } = useMutation({
+    mutationFn: (code: string) => postConnectCouple(code),
+    onSuccess: ({ user, partner, couple }) => {
+      updateUser(user, partner, couple);
+    },
+  });
+
+  return { setUser: mutate };
 };

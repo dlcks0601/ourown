@@ -1,5 +1,6 @@
 import { AppText } from '@/components/AppText';
 import SetInput from '@/components/SetInput';
+import { useSetConnectCouple } from '@/hooks/query/user.query';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { useAuthStore } from '@/store/authStore';
 import { Entypo, EvilIcons } from '@expo/vector-icons';
@@ -21,6 +22,7 @@ export default function CoupleCodeScreen() {
   const isDark = colorScheme === 'dark';
   const [code, setCode] = useState('');
   const { user } = useAuthStore();
+  const { setUser } = useSetConnectCouple(); // ✅ useMutation 훅 사용
 
   return (
     <SafeAreaView className='flex-1'>
@@ -103,7 +105,18 @@ export default function CoupleCodeScreen() {
             </View>
           </View>
 
-          <TouchableOpacity className='absolute bottom-5 right-5'>
+          <TouchableOpacity
+            className='absolute bottom-5 right-5'
+            onPress={() => {
+              const trimmed = code.trim();
+              if (!trimmed) {
+                Alert.alert('오류', '코드를 올바르게 입력해주세요.');
+                return;
+              }
+              setUser(trimmed); // 상태 업데이트 (Zustand)
+              router.replace('/(protected)/(tabs)/(home)'); // 라우팅);
+            }}
+          >
             <Entypo
               name='chevron-thin-right'
               size={24}

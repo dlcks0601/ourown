@@ -69,5 +69,6 @@ export interface AuthState {
     couple: Couple
   ) => void;
   updateNickname: (nickname: string) => void;
+  updateUser: (user: User, Partner: Partner, couple: Couple) => void;
   logOut: () => void;
 }

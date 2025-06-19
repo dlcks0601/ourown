@@ -1,4 +1,4 @@
-import { MessageResponse } from './auth.type';
+import { MessageResponse, Partner, User } from './auth.type';
 
 export interface AnniversaryResponse {
   type: string;
@@ -22,10 +22,12 @@ export interface CoupleImageResponse {
 }
 
 export interface Couple {
-  id: number;
+  anniversary: string;
 }
 
 export interface ConnectCoupleResponse {
   message: MessageResponse;
+  user: User;
+  partner: Partner;
   couple: Couple;
 }
