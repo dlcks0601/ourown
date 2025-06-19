@@ -1,5 +1,6 @@
 import CheckInput from '@/components/CheckInput';
 import {
+  useDeleteListMutation,
   useDoneListMutation,
   useGetListMutation,
   usePostListMutation,
@@ -23,6 +24,7 @@ export default function SecondScreen() {
   const coupleId = user.coupleId;
   const { postList } = usePostListMutation();
   const { doneList } = useDoneListMutation();
+  const { deleteList } = useDeleteListMutation();
   const [inputValue, setInputValue] = useState('');
   const { data } = useGetListMutation(coupleId);
   const list = data?.list ?? [];
@@ -108,7 +110,11 @@ export default function SecondScreen() {
 
               {/* 삭제 버튼 구현 필요*/}
               {isMine && (
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    deleteList({ contetnId: item.id, coupleId: user.coupleId })
+                  }
+                >
                   <EvilIcons
                     name='close'
                     size={20}
