@@ -11,3 +11,12 @@ export interface CoupleInfoResponse {
   dday: number;
   anniv: AnniversaryResponse[];
 }
+
+export interface WidgetResponse {
+  photoUrl: string;
+}
+
+export interface CoupleImageResponse {
+  message: MessageResponse;
+  widget: WidgetResponse;
+}
