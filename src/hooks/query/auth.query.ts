@@ -10,8 +10,8 @@ export const useAuthMutation = () => {
   const { mutate } = useMutation({
     mutationFn: (securityCode: string) => postSecritycode(securityCode),
     onSuccess: async (data) => {
-      const { user, jwt, isNew, partner } = data;
-      await logIn(user, jwt, partner);
+      const { user, jwt, isNew, partner, couple } = data;
+      await logIn(user, jwt, partner, couple);
       if (isNew) {
         router.navigate('/auth/nickname');
       } else router.replace('/(protected)/(tabs)/(home)');
@@ -27,8 +27,8 @@ export const useSignupMutation = () => {
     mutationFn: (data: { email: string; password: string }) =>
       signup(data.email, data.password),
     onSuccess: async (data: SignupResponse) => {
-      const { user, jwt, partner } = data;
-      await logIn(user, jwt, partner);
+      const { user, jwt, partner, couple } = data;
+      await logIn(user, jwt, partner, couple);
       router.push('/auth/nickname');
     },
   });
@@ -40,8 +40,8 @@ export const useKakaoMutation = () => {
   const { mutate } = useMutation({
     mutationFn: (accessToken: string) => kakaoLogin(accessToken),
     onSuccess: async (data) => {
-      const { user, jwt, isNew, partner } = data;
-      await logIn(user, jwt, partner);
+      const { user, jwt, isNew, partner, couple } = data;
+      await logIn(user, jwt, partner, couple);
       if (isNew) {
         router.navigate('/auth/nickname');
       } else router.navigate('/(protected)/(tabs)/(home)');

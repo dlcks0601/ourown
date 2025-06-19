@@ -1,12 +1,13 @@
+// app/(protected)/_layout.tsx
 import { useAuthStore } from '@/store/authStore';
 import { Redirect, Stack } from 'expo-router';
 
 export const unstable_settings = {
-  initialRouteName: '(tabs)', // anchor
+  initialRouteName: '(tabs)',
 };
 
 export default function ProtectedLayout() {
-  const { isReady, isLoggedIn } = useAuthStore();
+  const { isReady, isLoggedIn, couple } = useAuthStore();
 
   if (!isReady) {
     return null;
@@ -14,6 +15,11 @@ export default function ProtectedLayout() {
 
   if (!isLoggedIn) {
     return <Redirect href='/login' />;
+  }
+
+  // 커플 정보가 등록되지 않은 경우
+  if (!couple?.anniversary) {
+    return <Redirect href='/auth/couplecode' />;
   }
 
   return (

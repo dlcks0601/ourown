@@ -16,6 +16,7 @@ export default function AuthLayout() {
       <Stack.Screen name='signup' options={{ headerShown: false }} />
       <Stack.Screen name='login' options={{ headerShown: false }} />
       <Stack.Screen name='nickname' options={{ headerShown: false }} />
+      <Stack.Screen name='couplecode' options={{ headerShown: false }} />
     </Stack>
   );
 }

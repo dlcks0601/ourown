@@ -1,4 +1,5 @@
 import { AppText } from '@/components/AppText';
+import SetInput from '@/components/SetInput';
 import { useSetNicknameMutation } from '@/hooks/query/user.query';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
@@ -9,7 +10,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -66,7 +66,7 @@ export default function NicknameScreen() {
             </View>
           </View>
           <View className='flex-col justify-center items-center px-4 mt-14'>
-            <TextInput
+            {/* <TextInput
               value={nickname}
               onChangeText={setNickname}
               className={`w-full h-20 px-4 text-xl ${
@@ -79,6 +79,11 @@ export default function NicknameScreen() {
                 fontSize: 20,
                 fontWeight: 'light',
               }}
+            /> */}
+            <SetInput
+              value={nickname}
+              onChangeText={setNickname}
+              placeholder='닉네임을 입력해주세요'
             />
           </View>
           <TouchableOpacity
@@ -87,7 +92,7 @@ export default function NicknameScreen() {
               if (nickname.trim()) {
                 setNickname(nickname);
                 setNicknameMutation(nickname);
-                router.push('/(protected)/(tabs)/(home)');
+                router.push('/auth/couplecode');
               }
             }}
             disabled={!nickname.trim()}
