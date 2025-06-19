@@ -26,7 +26,7 @@ export default function CoupleWidget() {
       <Image
         source={{ uri: data.widget.photoUrl }}
         resizeMode='cover'
-        style={{ width: '100%', height: 300, borderRadius: 16 }}
+        style={{ width: '100%', height: 250, borderRadius: 16 }}
       />
     </View>
   );
