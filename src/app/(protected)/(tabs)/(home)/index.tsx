@@ -1,4 +1,5 @@
 import CoupleLink from '@/components/CoupleLink';
+import CoupleWidget from '@/components/CoupleWidget';
 import Todo from '@/components/Todo';
 import React from 'react';
 import { useColorScheme, View } from 'react-native';
@@ -13,7 +14,12 @@ export default function IndexScreen() {
     <SafeAreaView className={`flex-1 ${isDark ? 'bg-black' : 'bg-white'}`}>
       <View className='flex-col'>
         <View className={`p-4 ${isDark ? 'bg-black' : 'bg-white'} gap-4`}>
-          <CoupleLink />
+          <CoupleWidget />
+          <View className='flex-row w-full gap-4'>
+            <CoupleLink />
+            <CoupleLink />
+          </View>
+
           <Todo />
         </View>
       </View>
