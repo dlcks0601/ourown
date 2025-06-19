@@ -1,4 +1,10 @@
-import { AuthState, Partner, TokenResponse, User } from '@/types/auth.type';
+import {
+  AuthState,
+  Couple,
+  Partner,
+  TokenResponse,
+  User,
+} from '@/types/auth.type';
 import * as SecureStore from 'expo-secure-store';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
@@ -51,8 +57,17 @@ export const useAuthStore = create<AuthState>()(
         nickname: '',
         profileUrl: '',
       },
-      logIn: (user: User, jwt: TokenResponse, partner: Partner) => {
-        set({ isLoggedIn: true, user, jwt, partner });
+      couple: {
+        anniversary: '',
+      },
+      logIn: (
+        user: User,
+        jwt: TokenResponse,
+        partner: Partner,
+        couple: Couple
+      ) => {
+        console.log('커플', couple);
+        set({ isLoggedIn: true, user, jwt, partner, couple });
       },
       updateNickname: (nickname: string) => {
         set((state) => ({
@@ -75,6 +90,9 @@ export const useAuthStore = create<AuthState>()(
             id: 0,
             nickname: '',
             profileUrl: '',
+          },
+          couple: {
+            anniversary: '',
           },
         });
       },

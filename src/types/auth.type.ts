@@ -8,6 +8,10 @@ export interface MessageResponse {
   text: string;
 }
 
+export interface Couple {
+  anniversary: string;
+}
+
 export interface User {
   id: number;
   code: string;
@@ -30,6 +34,7 @@ export interface LoginResponse {
   message: MessageResponse;
   user: User;
   partner: Partner;
+  couple: Couple;
 }
 
 export interface SignupResponse {
@@ -38,6 +43,7 @@ export interface SignupResponse {
   message: MessageResponse;
   user: User;
   partner: Partner;
+  couple: Couple;
 }
 
 export interface SignupState {
@@ -55,7 +61,13 @@ export interface AuthState {
   user: User;
   jwt: TokenResponse;
   partner: Partner;
-  logIn: (user: User, jwt: TokenResponse, partner: Partner) => void;
+  couple: Couple;
+  logIn: (
+    user: User,
+    jwt: TokenResponse,
+    partner: Partner,
+    couple: Couple
+  ) => void;
   updateNickname: (nickname: string) => void;
   logOut: () => void;
 }

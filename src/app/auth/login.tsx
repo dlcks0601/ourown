@@ -64,7 +64,9 @@ export default function LoginScreen() {
     setLoading(true);
     setError('');
     login(emailTrimmed, password)
-      .then(({ user, jwt, partner }) => logIn(user, jwt, partner))
+      .then(({ user, jwt, partner, couple }) =>
+        logIn(user, jwt, partner, couple)
+      )
       .then(() => router.replace('/(protected)/(tabs)/(home)'))
       .catch((err: any) => {
         console.error(err);
