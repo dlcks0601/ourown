@@ -20,3 +20,7 @@ export interface PostListResponse {
 export interface DoneListResponse {
   message: MessageResponse;
 }
+
+export interface DeleteListResponse {
+  message: MessageResponse;
+}

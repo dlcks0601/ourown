@@ -1,6 +1,7 @@
-import { doneList, getList, postList } from '@/api/list/list.api';
+import { deleteList, doneList, getList, postList } from '@/api/list/list.api';
 import {
   BucketListResponse,
+  DeleteListResponse,
   DoneListResponse,
   PostListResponse,
 } from '@/types/list.type';
@@ -49,4 +50,22 @@ export const useDoneListMutation = () => {
     },
   });
   return { doneList: mutate };
+};
+
+export const useDeleteListMutation = () => {
+  const { mutate } = useMutation({
+    mutationFn: ({
+      coupleId,
+      contetnId,
+    }: {
+      coupleId: number;
+      contetnId: number;
+    }) => deleteList(coupleId, contetnId),
+    onSuccess: (data: DeleteListResponse) => {
+      queryClient.invalidateQueries({
+        queryKey: ['list'],
+      });
+    },
+  });
+  return { deleteList: mutate };
 };

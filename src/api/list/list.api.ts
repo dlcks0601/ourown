@@ -1,5 +1,6 @@
 import {
   BucketListResponse,
+  DeleteListResponse,
   DoneListResponse,
   PostListResponse,
 } from '@/types/list.type';
@@ -38,6 +39,21 @@ export const doneList = async (
   const response = await fetcher<DoneListResponse>({
     url: `/list/${coupleId}/${contentId}`,
     method: 'POST',
+    data: {
+      coupleId,
+      contentId,
+    },
+  });
+  return response.data;
+};
+
+export const deleteList = async (
+  coupleId: number,
+  contentId: number
+): Promise<DeleteListResponse> => {
+  const response = await fetcher<DeleteListResponse>({
+    url: `/list/${coupleId}/${contentId}`,
+    method: 'DELETE',
     data: {
       coupleId,
       contentId,
