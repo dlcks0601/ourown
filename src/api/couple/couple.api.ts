@@ -1,4 +1,7 @@
-import { CoupleImageResponse } from '@/types/couple.type';
+import {
+  ConnectCoupleResponse,
+  CoupleImageResponse,
+} from '@/types/couple.type';
 import fetcher from '@/utils/fetcher';
 
 export const getCoupleImage = async (
@@ -7,6 +10,19 @@ export const getCoupleImage = async (
   const response = await fetcher<CoupleImageResponse>({
     url: `/couple/${coupleId}/widget`,
     method: 'GET',
+  });
+  return response.data;
+};
+
+export const postConnectCouple = async (
+  code: number
+): Promise<ConnectCoupleResponse> => {
+  const response = await fetcher<ConnectCoupleResponse>({
+    url: '/user/match',
+    method: 'POST',
+    data: {
+      code,
+    },
   });
   return response.data;
 };

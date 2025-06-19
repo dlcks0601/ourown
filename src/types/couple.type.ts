@@ -20,3 +20,12 @@ export interface CoupleImageResponse {
   message: MessageResponse;
   widget: WidgetResponse;
 }
+
+export interface Couple {
+  id: number;
+}
+
+export interface ConnectCoupleResponse {
+  message: MessageResponse;
+  couple: Couple;
+}

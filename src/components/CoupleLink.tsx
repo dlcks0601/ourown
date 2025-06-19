@@ -8,6 +8,9 @@ export default function CoupleLink() {
   const { user, partner, couple } = useAuthStore();
   const coupleId = user.coupleId;
   const { data } = useGetCoupleInfo(coupleId);
+
+  if (!partner) return null;
+
   const dday = data?.dday ?? 0;
   const formattedAnniv = formatAnniversaryToKoreanDate(couple.anniversary);
 
