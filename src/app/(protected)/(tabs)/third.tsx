@@ -37,6 +37,9 @@ export default function ThirdScreen() {
   const { postWidgetMemo } = usePostMemoWidget();
   const { data } = useGetMemo(coupleId);
   const memo = data?.memo ?? [];
+  const sortedMemo = [...memo].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
   const { deleteMemo } = useDeleteMemo();
   const { putMemo } = usePutMemo();
   const { postMemo } = usePostMemo();
@@ -117,7 +120,7 @@ export default function ThirdScreen() {
       </View>
 
       <FlatList
-        data={memo}
+        data={sortedMemo}
         keyExtractor={(item) => item.id.toString()}
         numColumns={2}
         columnWrapperStyle={{
@@ -303,7 +306,7 @@ export default function ThirdScreen() {
                             multiline
                             value={editedContent}
                             onChangeText={setEditedContent}
-                            style={{ padding: 0 }}
+                            style={{ padding: 0, height: 100 }}
                             placeholder='메모를 입력해주세요'
                             placeholderTextColor={isDark ? '#aaa' : '#888'}
                           />
