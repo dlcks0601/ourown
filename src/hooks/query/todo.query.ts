@@ -1,9 +1,5 @@
 import { deleteTodo, doneTodo, getTodo, postTodo } from '@/api/todo/todo.api';
-import {
-  DeleteTodoResponse,
-  DoneTodoResponse,
-  PostTodoResponse,
-} from '@/types/todo.type';
+import { useAuthStore } from '@/store/authStore';
 import { queryClient } from '@/utils/queryClinet';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
@@ -16,6 +12,8 @@ export const useGetTodo = (coupleId: number) => {
 };
 
 export const usePostTodoMutation = () => {
+  const { user } = useAuthStore();
+  const coupleId = user.coupleId;
   const { mutate } = useMutation({
     mutationFn: ({
       coupleId,
@@ -24,9 +22,9 @@ export const usePostTodoMutation = () => {
       coupleId: number;
       content: string;
     }) => postTodo(coupleId, content),
-    onSuccess: (data: PostTodoResponse) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['todo'],
+        queryKey: ['todo', coupleId],
       });
     },
   });
@@ -34,11 +32,14 @@ export const usePostTodoMutation = () => {
 };
 
 export const useDoneTodoMutation = () => {
+  const { user } = useAuthStore();
+  const coupleId = user.coupleId;
   const { mutate } = useMutation({
-    mutationFn: ({ todoId }: { todoId: number }) => doneTodo(todoId),
-    onSuccess: (data: DoneTodoResponse) => {
+    mutationFn: ({ todoId, coupleId }: { todoId: number; coupleId: number }) =>
+      doneTodo(todoId),
+    onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['todo'],
+        queryKey: ['todo', coupleId],
       });
     },
   });
@@ -46,11 +47,14 @@ export const useDoneTodoMutation = () => {
 };
 
 export const useDeleteTodoMutation = () => {
+  const { user } = useAuthStore();
+  const coupleId = user.coupleId;
   const { mutate } = useMutation({
-    mutationFn: ({ todoId }: { todoId: number }) => deleteTodo(todoId),
-    onSuccess: (data: DeleteTodoResponse) => {
+    mutationFn: ({ todoId, coupleId }: { todoId: number; coupleId: number }) =>
+      deleteTodo(todoId),
+    onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['todo'],
+        queryKey: ['todo', coupleId],
       });
     },
   });

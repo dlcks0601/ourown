@@ -61,7 +61,7 @@ export default function TodoWidget() {
                 className='flex-row items-center my-2'
                 onPress={() => {
                   if (isCurrentUser) {
-                    doneTodo({ todoId: todo.id });
+                    doneTodo({ todoId: todo.id, coupleId });
                   }
                 }}
                 activeOpacity={isCurrentUser ? 0.7 : 1}

@@ -82,7 +82,7 @@ export default function TodoSettingScreen() {
             <View className='flex-row items-center justify-between pt-2 pb-2'>
               <View className='flex-row items-center'>
                 <TouchableOpacity
-                  onPress={() => doneTodo({ todoId: item.id })}
+                  onPress={() => doneTodo({ todoId: item.id, coupleId })}
                   className={`w-6 h-6 rounded-full border-2 mr-3 items-center justify-center ${
                     isSelected ? 'border-red-500 bg-red-500' : 'border-gray-400'
                   }`}
@@ -105,7 +105,9 @@ export default function TodoSettingScreen() {
               </View>
 
               {/* 삭제 버튼 */}
-              <TouchableOpacity onPress={() => deleteTodo({ todoId: item.id })}>
+              <TouchableOpacity
+                onPress={() => deleteTodo({ todoId: item.id, coupleId })}
+              >
                 <EvilIcons
                   name='close'
                   size={20}
