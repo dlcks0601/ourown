@@ -35,9 +35,9 @@ export default function BottomTabsLayout() {
         }}
       />
       <Tabs.Screen
-        name='second'
+        name='bucket'
         options={{
-          title: 'Second',
+          title: 'Bucket',
           headerShown: false,
           popToTopOnBlur: true,
           tabBarIcon: ({ color, size }) => (
