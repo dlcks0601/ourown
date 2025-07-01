@@ -14,12 +14,12 @@ export default function ProtectedLayout() {
   }
 
   if (!isLoggedIn) {
-    return <Redirect href='/login' />;
+    return <Redirect href='/' />;
   }
 
-  if (user && !user.coupleId) {
-    return <Redirect href='/auth/couplecode' />;
-  }
+  // if (user && !user.coupleId) {
+  //   return <Redirect href='/auth/couplewaitcode' />;
+  // }
 
   return (
     <Stack>

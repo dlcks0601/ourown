@@ -7,6 +7,10 @@ export default function CoupleMemo() {
   const { user } = useAuthStore();
   const { data } = useGetMemo(user.coupleId);
 
+  if (!user?.coupleId) {
+    return null;
+  }
+
   const widgetMemo = data?.memo.find((m) => m.isWidgetMemo);
 
   if (!widgetMemo) {

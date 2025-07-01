@@ -5,7 +5,6 @@ import { useSetConnectCouple } from '@/hooks/query/user.query';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { useAuthStore } from '@/store/authStore';
 import { Entypo, EvilIcons } from '@expo/vector-icons';
-import * as Clipboard from 'expo-clipboard';
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import {
@@ -107,34 +106,6 @@ export default function CoupleCodeScreen() {
               onChangeText={setCode}
               placeholder='상대방 코드 입력'
             />
-          </View>
-          <View className='flex-col items-center gap-2 mt-16'>
-            <View>
-              <AppText
-                className={`text-lg ${
-                  isDark ? 'text-gray-300' : 'text-gray-400'
-                }`}
-              >
-                {user.nickname}님 코드를 꾹 눌러 복사해주세요!
-              </AppText>
-            </View>
-            <View>
-              <TouchableOpacity
-                onLongPress={async () => {
-                  await Clipboard.setStringAsync(user.code);
-                  Alert.alert('복사 완료', '코드가 복사되었습니다.');
-                }}
-                activeOpacity={0.7}
-              >
-                <AppText
-                  className={`text-xl ${isDark ? 'text-white' : 'text-black'}`}
-                >
-                  {user.code.length > 8
-                    ? `${user.code.slice(0, 8)}`
-                    : user.code}
-                </AppText>
-              </TouchableOpacity>
-            </View>
           </View>
 
           <TouchableOpacity

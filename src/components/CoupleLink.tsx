@@ -9,7 +9,9 @@ export default function CoupleLink() {
   const coupleId = user.coupleId;
   const { data } = useGetCoupleInfo(coupleId);
 
-  if (!partner) return null;
+  if (!user?.coupleId) {
+    return null;
+  }
 
   const dday = data?.dday ?? 0;
   const formattedAnniv = formatToKoreanDate(couple.anniversary);

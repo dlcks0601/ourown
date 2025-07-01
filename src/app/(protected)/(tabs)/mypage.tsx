@@ -40,6 +40,11 @@ export default function FourthScreen() {
       </Text>
       <Button title='Back' onPress={() => router.back()} />
       <Button title='로그아웃' theme='secondary' onPress={handleLogout} />
+      <Button
+        title='커플 연결'
+        theme='secondary'
+        onPress={() => router.push('/auth/couplewaitcode')}
+      />
     </View>
   );
 }

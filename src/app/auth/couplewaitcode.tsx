@@ -66,7 +66,7 @@ export default function CoupleWaitCodeScreen() {
           <View className='flex-row justify-between items-center w-full px-4 relative'>
             {/* 뒤로가기 */}
             <TouchableOpacity
-              onPress={() => router.push('./login')}
+              onPress={() => router.back()}
               className='absolute right-4'
             >
               <EvilIcons
@@ -96,7 +96,7 @@ export default function CoupleWaitCodeScreen() {
                   isDark ? 'text-gray-300' : 'text-gray-400'
                 }`}
               >
-                상대방 연결 코드를 입력해주세요
+                상대방이 연결하면 자동으로 이동합니다.
               </Text>
             </View>
           </View>
@@ -105,8 +105,9 @@ export default function CoupleWaitCodeScreen() {
               onPress={() => {
                 router.push('/auth/couplecode');
               }}
+              className='border border-white p-4 rounded-md mt-2'
             >
-              <AppText className='text-xl'>상대방 코드 입력하러 가기</AppText>
+              <AppText className='text-lg'>코드 입력하러 가기</AppText>
             </TouchableOpacity>
           </View>
           <View className='flex-col items-center gap-2 mt-16'>
