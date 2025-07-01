@@ -92,7 +92,7 @@ export default function NicknameScreen() {
               if (nickname.trim()) {
                 setNickname(nickname);
                 setNicknameMutation(nickname);
-                router.replace('/auth/couplecode');
+                router.replace('/auth/couplewaitcode');
               }
             }}
             disabled={!nickname.trim()}
