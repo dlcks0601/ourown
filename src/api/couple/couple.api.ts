@@ -1,6 +1,7 @@
 import {
   ConnectCoupleResponse,
   CoupleImageResponse,
+  CoupleMatchResponse,
 } from '@/types/couple.type';
 import fetcher from '@/utils/fetcher';
 
@@ -23,6 +24,14 @@ export const postConnectCouple = async (
     data: {
       code,
     },
+  });
+  return response.data;
+};
+
+export const getCoupleMatch = async (): Promise<CoupleMatchResponse> => {
+  const response = await fetcher<CoupleMatchResponse>({
+    url: '/user/match',
+    method: 'GET',
   });
   return response.data;
 };

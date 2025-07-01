@@ -1,5 +1,5 @@
-import { getCoupleImage } from '@/api/couple/couple.api';
-import { CoupleImageResponse } from '@/types/couple.type';
+import { getCoupleImage, getCoupleMatch } from '@/api/couple/couple.api';
+import { CoupleImageResponse, CoupleMatchResponse } from '@/types/couple.type';
 import { useQuery } from '@tanstack/react-query';
 
 export const useGetCoupleImageMutation = (coupleId: number) => {
@@ -7,5 +7,13 @@ export const useGetCoupleImageMutation = (coupleId: number) => {
     queryKey: ['coupleImage', coupleId],
     queryFn: () => getCoupleImage(coupleId),
     enabled: !!coupleId,
+  });
+};
+
+export const useGetCoupleMatchQuery = () => {
+  return useQuery<CoupleMatchResponse>({
+    queryKey: ['coupleMatch'],
+    queryFn: getCoupleMatch,
+    enabled: false,
   });
 };

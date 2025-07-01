@@ -31,3 +31,11 @@ export interface ConnectCoupleResponse {
   partner: Partner;
   couple: Couple;
 }
+
+export interface CoupleMatchResponse {
+  success: boolean;
+  message: MessageResponse;
+  user?: User;
+  couple?: Couple;
+  partner?: Partner;
+}

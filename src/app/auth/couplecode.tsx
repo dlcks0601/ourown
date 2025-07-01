@@ -1,12 +1,13 @@
 import { AppText } from '@/components/AppText';
 import SetInput from '@/components/SetInput';
+import { useGetCoupleMatchQuery } from '@/hooks/query/couple.query';
 import { useSetConnectCouple } from '@/hooks/query/user.query';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { useAuthStore } from '@/store/authStore';
 import { Entypo, EvilIcons } from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
 import { router } from 'expo-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Alert,
   KeyboardAvoidingView,
@@ -23,6 +24,25 @@ export default function CoupleCodeScreen() {
   const [code, setCode] = useState('');
   const { user } = useAuthStore();
   const { setUser } = useSetConnectCouple(); // ✅ useMutation 훅 사용
+
+  const { refetch } = useGetCoupleMatchQuery();
+
+  // 폴링 로직
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      try {
+        const { data } = await refetch();
+        if (data?.success) {
+          clearInterval(interval);
+          router.replace('/(protected)/(tabs)/(home)');
+        }
+      } catch (error) {
+        console.error('폴링 에러', error);
+      }
+    }, 3000); // 3초마다 확인
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <SafeAreaView className='flex-1'>
