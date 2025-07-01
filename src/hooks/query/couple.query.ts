@@ -14,6 +14,7 @@ export const useGetCoupleMatchQuery = () => {
   return useQuery<CoupleMatchResponse>({
     queryKey: ['coupleMatch'],
     queryFn: getCoupleMatch,
-    enabled: false,
+    refetchInterval: 3000,
+    refetchIntervalInBackground: true,
   });
 };

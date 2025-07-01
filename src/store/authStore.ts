@@ -74,6 +74,9 @@ export const useAuthStore = create<AuthState>()(
           user: { ...state.user, nickname },
         }));
       },
+      updateUser: (user: User, partner: Partner, couple: Couple) => {
+        set({ user, partner, couple });
+      },
       logOut: () => {
         set({
           isLoggedIn: false,

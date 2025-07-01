@@ -1,6 +1,6 @@
+import { getCoupleMatch } from '@/api/couple/couple.api';
 import { AppText } from '@/components/AppText';
 import SetInput from '@/components/SetInput';
-import { useGetCoupleMatchQuery } from '@/hooks/query/couple.query';
 import { useSetConnectCouple } from '@/hooks/query/user.query';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { useAuthStore } from '@/store/authStore';
@@ -23,23 +23,35 @@ export default function CoupleCodeScreen() {
   const isDark = colorScheme === 'dark';
   const [code, setCode] = useState('');
   const { user } = useAuthStore();
-  const { setUser } = useSetConnectCouple(); // ✅ useMutation 훅 사용
+  const { setUser } = useSetConnectCouple();
 
-  const { refetch } = useGetCoupleMatchQuery();
+  const { updateUser } = useAuthStore();
 
-  // 폴링 로직
   useEffect(() => {
     const interval = setInterval(async () => {
       try {
-        const { data } = await refetch();
-        if (data?.success) {
+        const response = await getCoupleMatch();
+        console.log('폴링 결과:', response);
+
+        if (
+          response.success &&
+          response.user &&
+          response.partner &&
+          response.couple
+        ) {
+          // 1. 상태 갱신
+          updateUser(response.user, response.partner, response.couple);
+
+          // 2. 폴링 중단
           clearInterval(interval);
+
+          // 3. 홈 화면으로 이동
           router.replace('/(protected)/(tabs)/(home)');
         }
       } catch (error) {
-        console.error('폴링 에러', error);
+        console.error('폴링 에러:', error);
       }
-    }, 3000); // 3초마다 확인
+    }, 3000);
 
     return () => clearInterval(interval);
   }, []);
