@@ -146,11 +146,7 @@ export default function CoupleCodeScreen() {
                 return;
               }
 
-              // Zustand 상태 갱신 + POST 요청 + onSuccess 처리까지 모두 포함
               setUser(trimmed);
-
-              // 상태 갱신이 비동기로 처리되지만, Home으로 바로 이동 가능
-              router.replace('/(protected)/(tabs)/(home)');
             }}
           >
             <Entypo
