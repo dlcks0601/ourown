@@ -17,7 +17,7 @@ export default function CoupleLink() {
   const formattedAnniv = formatToKoreanDate(couple.anniversary);
 
   return (
-    <View className='flex-1 aspect-square bg-black rounded-2xl p-4 justify-between'>
+    <View className='flex-1 aspect-square bg-[#401313] rounded-2xl p-4 justify-between'>
       <View className='flex-col'>
         <AppText className='text-md text-gray-200'>
           {partner.nickname} 사랑한 지
