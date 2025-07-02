@@ -7,9 +7,7 @@ import { useEffect, useState } from 'react';
 import {
   Keyboard,
   KeyboardAvoidingView,
-  Platform,
   SafeAreaView,
-  ScrollView,
   Text,
   TouchableOpacity,
   View,
@@ -81,91 +79,82 @@ export default function SignupScreen() {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'position' : 'height'}
       keyboardVerticalOffset={-200}
-      className='flex-1 mt-60'
+      className='flex-1 mt-48'
     >
-      <ScrollView
-        keyboardShouldPersistTaps='handled'
-        contentContainerStyle={{ marginTop: 50 }}
-        scrollEnabled={isKeyboardVisible}
-      >
-        <SafeAreaView className='flex-1'>
-          <View className='flex-1 justify-center px-8'>
-            <View className='flex-col items-center'>
-              {/* 로고 */}
-              <View>
-                <AppText className='text-4xl font-logo'>Our</AppText>
-                <AppText className='text-4xl font-logo mt-[-11px]'>Own</AppText>
-              </View>
-              {/* 회원가입 폼 */}
-              <View className='flex-col w-full mt-10'>
-                <View className='flex-col w-full h-[95px]'>
-                  <AuthInput
-                    label='이메일'
-                    placeholder='이메일을 입력해주세요.'
-                    value={email}
-                    onChangeText={(text) => {
-                      setEmail(text);
-                      if (text.trim()) setEmailError(false);
-                    }}
-                    keyboardType='email-address'
-                    required
-                    error={
-                      emailError ? '올바른 이메일 형식이 아닙니다.' : undefined
-                    }
-                  />
-                  {emailError && (
-                    <Text className='text-red-500 text-sm mt-[-10px]'>
-                      올바른 이메일 형식이 아닙니다.
-                    </Text>
-                  )}
-                </View>
-                <View className='flex-col w-full'>
-                  <AuthInput
-                    label='패스워드'
-                    placeholder='패스워드를 입력해주세요.'
-                    value={password}
-                    onChangeText={(text) => {
-                      setPassword(text);
-                      if (text) setPasswordError(false);
-                    }}
-                    secureTextEntry
-                    required
-                  />
-                </View>
-              </View>
-
-              {/* 다음 버튼 */}
-              <View className='w-full mt-8'>
-                {email && password ? (
-                  <TouchableOpacity
-                    className={`rounded-md py-5 ${
-                      isDark ? 'bg-white' : 'bg-black'
-                    }`}
-                    onPress={handleSignup}
-                  >
-                    <Text
-                      className={`${
-                        isDark ? 'text-black' : 'text-white'
-                      } text-center`}
-                    >
-                      다음
-                    </Text>
-                  </TouchableOpacity>
-                ) : (
-                  <TouchableOpacity
-                    className='rounded-md py-5 bg-gray-300'
-                    disabled={true}
-                  >
-                    <Text className='text-gray-500 text-center'>다음</Text>
-                  </TouchableOpacity>
-                )}
-              </View>
+      <SafeAreaView className='flex-1'>
+        <View className='flex-col items-center px-8'>
+          {/* 로고 */}
+          <View className='flex-col items-start'>
+            <AppText className='text-4xl font-logo'>Our</AppText>
+            <AppText className='text-4xl font-logo mt-[-11px]'>Own</AppText>
+          </View>
+          {/* 회원가입 폼 */}
+          <View className='flex-col w-full'>
+            <View className='flex-col w-full h-[95px]'>
+              <AuthInput
+                label='이메일'
+                placeholder='이메일을 입력해주세요.'
+                value={email}
+                onChangeText={(text) => {
+                  setEmail(text);
+                  if (text.trim()) setEmailError(false);
+                }}
+                keyboardType='email-address'
+                required
+                error={
+                  emailError ? '올바른 이메일 형식이 아닙니다.' : undefined
+                }
+              />
+              {emailError && (
+                <Text className='text-red-500 text-sm mt-[-10px]'>
+                  올바른 이메일 형식이 아닙니다.
+                </Text>
+              )}
+            </View>
+            <View className='flex-col w-full'>
+              <AuthInput
+                label='패스워드'
+                placeholder='패스워드를 입력해주세요.'
+                value={password}
+                onChangeText={(text) => {
+                  setPassword(text);
+                  if (text) setPasswordError(false);
+                }}
+                secureTextEntry
+                required
+              />
             </View>
           </View>
-        </SafeAreaView>
-      </ScrollView>
+
+          {/* 다음 버튼 */}
+          <View className='w-full mt-8'>
+            {email && password ? (
+              <TouchableOpacity
+                className={`rounded-md py-5 ${
+                  isDark ? 'bg-white' : 'bg-black'
+                }`}
+                onPress={handleSignup}
+              >
+                <Text
+                  className={`${
+                    isDark ? 'text-black' : 'text-white'
+                  } text-center`}
+                >
+                  다음
+                </Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                className='rounded-md py-5 bg-gray-300'
+                disabled={true}
+              >
+                <Text className='text-gray-500 text-center'>다음</Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        </View>
+      </SafeAreaView>
     </KeyboardAvoidingView>
   );
 }
