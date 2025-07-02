@@ -89,22 +89,26 @@ export default function ThirdScreen() {
     setIsModalVisible(false);
     setSelectedMemo(null);
     setIsEditing(false);
-    setIsCreating(false); // ← 꼭 추가!
+    setIsCreating(false);
     setEditedContent('');
   };
 
   return (
     <SafeAreaView
       edges={['top']}
-      className={`flex-1 px-4 ${isDark ? 'bg-black' : 'bg-white'}`}
+      className={`flex-1 px-4 ${isDark ? 'bg-black' : 'bg-[#ffffff]'}`}
     >
-      <View className='flex-row justify-between items-center mb-4'>
+      <View
+        className={`flex-row ${
+          isDark ? 'bg-black' : 'bg-white'
+        } justify-between items-center mb-4`}
+      >
         <Text
-          className={`text-3xl font-bold ${
+          className={`text-3xl font-logo ${
             isDark ? 'text-white' : 'text-black'
           }`}
         >
-          Memo
+          Our Memo
         </Text>
         <TouchableOpacity
           onPress={() => {
@@ -133,19 +137,17 @@ export default function ThirdScreen() {
           return (
             <Pressable
               onPress={() => openModal(item)}
-              className='w-[48%] aspect-square bg-[#c3d2b8] p-4 rounded-md'
+              className='w-[48%] aspect-square bg-[#f4f4f4] dark:bg-white rounded-md overflow-hidden'
             >
-              <View className='flex-row justify-between'>
-                <Text className='text-xs text-gray-500 dark:text-gray-300 mb-1'>
-                  {item.user.nickname}
-                </Text>
-                <Text className='text-xs text-gray-500 dark:text-gray-300 mb-1'>
-                  {writeDate}
-                </Text>
+              <View className='flex-row bg-[#e9acc1] dark:bg-red-500 justify-between px-3 py-2'>
+                <AppText className='text-sm'>{item.user.nickname}</AppText>
+                <AppText className='text-sm'>{writeDate}</AppText>
               </View>
-              <Text className='text-sm text-black dark:text-white'>
-                {item.content}
-              </Text>
+              <View className='px-3 py-3'>
+                <AppText className='text-md text-black dark:text-black'>
+                  {item.content}
+                </AppText>
+              </View>
             </Pressable>
           );
         }}
@@ -274,28 +276,28 @@ export default function ThirdScreen() {
                   {(selectedMemo || isCreating) && (
                     <View className='flex-1'>
                       {!isCreating && !isEditing && selectedMemo && (
-                        <View className='flex-row justify-between mb-3'>
+                        <View className='flex-row justify-between mb-[8px]'>
                           <AppText className='text-sm'>
                             {selectedMemo.user.nickname}
                           </AppText>
-                          <AppText className='text-gray-400 text-sm'>
+                          <AppText className=' text-sm'>
                             {formatToKoreanDate(selectedMemo.createdAt)}
                           </AppText>
                         </View>
                       )}
 
                       {isEditing ? (
-                        <View className='flex-col'>
-                          <View className='flex-row justify-between mb-2'>
+                        <View className='flex-col gap-2'>
+                          <View className='flex-row justify-between'>
                             {/* 작성자 */}
-                            <AppText className='text-sm text-gray-400'>
+                            <AppText className='text-sm'>
                               {isCreating
                                 ? user?.nickname
                                 : selectedMemo?.user.nickname}
                             </AppText>
 
                             {/* 작성 시간 */}
-                            <AppText className='text-sm text-gray-400'>
+                            <AppText className='text-sm'>
                               {isCreating
                                 ? formatToKoreanDate(new Date().toISOString())
                                 : formatToKoreanDate(selectedMemo!.createdAt)}
@@ -306,9 +308,13 @@ export default function ThirdScreen() {
                             multiline
                             value={editedContent}
                             onChangeText={setEditedContent}
-                            style={{ padding: 0, height: 100 }}
+                            style={{
+                              padding: 0,
+                              height: 350,
+                              color: isDark ? '#ffffff' : '#000000',
+                            }}
                             placeholder='메모를 입력해주세요'
-                            placeholderTextColor={isDark ? '#aaa' : '#888'}
+                            placeholderTextColor={isDark ? '#a7a7a7' : '#888'}
                           />
                         </View>
                       ) : (
@@ -327,7 +333,7 @@ export default function ThirdScreen() {
                       closeModal();
                     }
                   }}
-                  className='p-4 mb-10 rounded-xl bg-[#c8d2fe]'
+                  className='p-4 mb-10 rounded-xl bg-[#5473ff]'
                 >
                   <AppText className='text-center text-sm'>
                     {selectedMemo?.isWidgetMemo
