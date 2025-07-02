@@ -66,7 +66,7 @@ export default function CoupleWaitCodeScreen() {
           <View className='flex-row justify-between items-center w-full px-4 relative'>
             {/* 뒤로가기 */}
             <TouchableOpacity
-              onPress={() => router.back()}
+              onPress={() => router.replace('/(protected)/(tabs)/(home)')}
               className='absolute right-4'
             >
               <EvilIcons
