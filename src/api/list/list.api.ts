@@ -19,7 +19,8 @@ export const getList = async (
 
 export const postList = async (
   coupleId: number,
-  content: string
+  content: string,
+  categoryId: number
 ): Promise<PostListResponse> => {
   const response = await fetcher<PostListResponse>({
     url: '/list',
@@ -27,6 +28,7 @@ export const postList = async (
     data: {
       coupleId,
       content,
+      categoryId,
     },
   });
   return response.data;

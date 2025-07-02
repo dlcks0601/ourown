@@ -21,10 +21,12 @@ export const usePostListMutation = () => {
     mutationFn: ({
       coupleId,
       content,
+      categoryId,
     }: {
       coupleId: number;
       content: string;
-    }) => postList(coupleId, content),
+      categoryId: number;
+    }) => postList(coupleId, content, categoryId),
     onSuccess: (data: PostListResponse) => {
       queryClient.invalidateQueries({
         queryKey: ['list'],

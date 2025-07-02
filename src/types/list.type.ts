@@ -4,6 +4,7 @@ export interface ListResponse {
   id: number;
   isOwn: boolean;
   content: string;
+  categoryId: number;
   createdAt: string;
   isDone: boolean;
 }
