@@ -23,8 +23,10 @@ export default function CoupleMemo() {
 
   return (
     <View className='flex-1 aspect-square bg-pink-100 rounded-2xl p-4 justify-between'>
-      <AppText>{widgetMemo.content}</AppText>
-      <AppText className='font-bold'>{widgetMemo.user.nickname}</AppText>
+      <AppText className='text-black text-xl'>{widgetMemo.content}</AppText>
+      <AppText className='font-bold text-black text-xl'>
+        {widgetMemo.user.nickname}
+      </AppText>
     </View>
   );
 }
