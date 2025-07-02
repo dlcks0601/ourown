@@ -55,11 +55,11 @@ export default function TodoSettingScreen() {
       className={`flex-1 px-4 ${isDark ? 'bg-black' : 'bg-white'}`}
     >
       <Text
-        className={`text-3xl font-bold mb-4 ${
+        className={`text-3xl font-logo mb-4 ${
           isDark ? 'text-white' : 'text-black'
         }`}
       >
-        {user.nickname} Todo
+        {user.nickname} todo
       </Text>
 
       {/* 투두 리스트 */}
