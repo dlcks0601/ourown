@@ -7,7 +7,8 @@ import {
 } from '@/hooks/query/list.query';
 import { useAuthStore } from '@/store/authStore';
 import { EvilIcons } from '@expo/vector-icons';
-import React, { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useEffect, useState } from 'react';
 import {
   ScrollView,
   Text,
@@ -51,6 +52,26 @@ export default function BucketScreen() {
       return acc;
     }, {} as Record<number, string>)
   );
+
+  // 저장된 상태 불러오기
+  useEffect(() => {
+    const loadState = async () => {
+      try {
+        const stored = await AsyncStorage.getItem('openCategories');
+        if (stored) {
+          setOpenCategories(JSON.parse(stored));
+        }
+      } catch (e) {
+        console.error('카테고리 상태 불러오기 실패', e);
+      }
+    };
+    loadState();
+  }, []);
+
+  // 상태 변경될 때마다 저장
+  useEffect(() => {
+    AsyncStorage.setItem('openCategories', JSON.stringify(openCategories));
+  }, [openCategories]);
 
   const toggleCategory = (id: number) => {
     setOpenCategories((prev) => ({
@@ -119,7 +140,7 @@ export default function BucketScreen() {
               <EvilIcons
                 name={openCategories[cat.id] ? 'chevron-down' : 'chevron-right'}
                 size={36}
-                color='black'
+                color={isDark ? 'white' : 'black'}
               />
             </TouchableOpacity>
 
