@@ -46,10 +46,12 @@ axiosInstance.interceptors.response.use(
           response.data.jwt;
         console.log('✅ 새로운 토큰 발급 성공');
 
-        logIn(useAuthStore.getState().user, {
-          accessToken: newAccessToken,
-          refreshToken: newRefreshToken,
-        });
+        logIn(
+          response.data.user,
+          response.data.jwt,
+          response.data.partner,
+          response.data.couple
+        );
         console.log('💾 새로운 토큰 저장 완료');
 
         originalRequest.headers.Authorization = `Bearer ${jwt.accessToken}`;
