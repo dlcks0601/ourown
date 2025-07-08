@@ -61,7 +61,7 @@ export default function BottomTabsLayout() {
             backgroundColor: 'tomato',
             color: 'white',
           },
-          title: 'Fourth',
+          title: 'Mypage',
           tabBarIcon: () => (
             <Image
               source={{ uri: user.profileUrl }}
