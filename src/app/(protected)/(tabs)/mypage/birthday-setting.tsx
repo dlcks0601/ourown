@@ -5,23 +5,20 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-import { usePostCoupleAnniversaryMutation } from '@/hooks/query/couple.query';
+import { useSetUserBirthdayMutation } from '@/hooks/query/user.query';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { Platform, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function StartSettingScreen() {
+export default function BirthdaySettingScreen() {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
   const { user } = useAuthStore();
-  const couple = useAuthStore((state) => state.couple);
-  const initialDate = couple.anniversary
-    ? new Date(couple.anniversary)
-    : new Date();
+
+  const initialDate = user.birthday ? new Date(user.birthday) : new Date();
   const [date, setDate] = useState(initialDate);
-  const { postCoupleAnniversary } = usePostCoupleAnniversaryMutation();
-  const coupleId = user.coupleId;
+  const { setUserBirthday } = useSetUserBirthdayMutation();
 
   return (
     <SafeAreaView
@@ -55,7 +52,7 @@ export default function StartSettingScreen() {
               <Text
                 className={`text-xl ${isDark ? 'text-white' : 'text-black'}`}
               >
-                변경할 기념일을 입력하세요
+                변경할 생일을 입력하세요
               </Text>
               {/* 선택된 날짜 표시 */}
               <Text className='text-3xl mt-8 text-[#E2CBA5] font-bold'>
@@ -81,12 +78,8 @@ export default function StartSettingScreen() {
           <TouchableOpacity
             className='bg-[#E2CBA5] rounded-md p-4'
             onPress={() => {
-              // 한국 시간대로 날짜 변환
-              const year = date.getFullYear();
-              const month = String(date.getMonth() + 1).padStart(2, '0');
-              const day = String(date.getDate()).padStart(2, '0');
-              const anniversary = `${year}-${month}-${day}`;
-              postCoupleAnniversary({ coupleId, anniversary });
+              const birthday = date.toISOString().split('T')[0];
+              setUserBirthday({ birthday });
             }}
           >
             <AppText className='text-center text-black text-lg'>완료</AppText>

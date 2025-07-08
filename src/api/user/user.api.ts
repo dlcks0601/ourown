@@ -1,5 +1,8 @@
 import { CoupleInfoResponse } from '@/types/couple.type';
-import { NicknameUpdateResponse } from '@/types/user.type';
+import {
+  NicknameUpdateResponse,
+  UserBirthdayUpdateResponse,
+} from '@/types/user.type';
 import fetcher from '@/utils/fetcher';
 
 export const setNickname = async (
@@ -22,6 +25,20 @@ export const fetchCoupleInfo = async (
   const response = await fetcher<CoupleInfoResponse>({
     url: `/couple/${coupleId}/anniversary`,
     method: 'GET',
+  });
+
+  return response.data;
+};
+
+export const updateUserBirthday = async (
+  birthday: string
+): Promise<UserBirthdayUpdateResponse> => {
+  const response = await fetcher<UserBirthdayUpdateResponse>({
+    url: `/user/birthday`,
+    method: 'POST',
+    data: {
+      birthday,
+    },
   });
   console.log(response.data);
   return response.data;

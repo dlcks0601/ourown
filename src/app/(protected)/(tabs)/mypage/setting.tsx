@@ -1,12 +1,11 @@
 import { AppText } from '@/components/AppText';
-import { calculateDday, formatToKoreanDate } from '@/constants/Day';
+import { formatToKoreanDate } from '@/constants/Day';
 import { useAuthStore } from '@/store/authStore';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import React from 'react';
 import {
   ActionSheetIOS,
-  Alert,
   Image,
   ScrollView,
   Text,
@@ -20,7 +19,6 @@ export default function SettingScreen() {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
   const { user, partner, couple } = useAuthStore();
-  const dday = calculateDday(couple.anniversary);
   const formattedAnniv = formatToKoreanDate(couple.anniversary);
 
   const handleUserPress = () => {
@@ -34,8 +32,7 @@ export default function SettingScreen() {
         if (buttonIndex === 0) {
           router.push('/mypage/nickname-setting');
         } else if (buttonIndex === 1) {
-          // 생년월일 설정 페이지로 이동 (추후 구현)
-          Alert.alert('알림', '생년월일 설정 페이지는 추후 구현 예정입니다.');
+          router.push('/mypage/birthday-setting');
         }
       }
     );
@@ -87,7 +84,9 @@ export default function SettingScreen() {
                     {user.nickname}
                   </AppText>
                   <AppText className='font-extralight text-xl'>
-                    1999.01.01
+                    {user.birthday
+                      ? user.birthday.slice(0, 10).replace(/-/g, '.')
+                      : ''}
                   </AppText>
                 </View>
               </View>
@@ -111,7 +110,9 @@ export default function SettingScreen() {
                     {partner.nickname}
                   </AppText>
                   <AppText className='font-extralight text-xl'>
-                    1999.01.01
+                    {partner.birthday
+                      ? partner.birthday.slice(0, 10).replace(/-/g, '.')
+                      : ''}
                   </AppText>
                 </View>
               </View>

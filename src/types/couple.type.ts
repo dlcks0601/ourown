@@ -39,3 +39,8 @@ export interface CoupleMatchResponse {
   couple?: Couple;
   partner?: Partner;
 }
+
+export interface postCoupleAnniversaryResponse {
+  message: MessageResponse;
+  couple: Couple;
+}

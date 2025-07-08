@@ -20,6 +20,7 @@ export default function MyPageScreen() {
   const { user, partner, couple } = useAuthStore();
   const dday = calculateDday(couple.anniversary);
   const formattedAnniv = formatToKoreanDate(couple.anniversary);
+  const { logOut } = useAuthStore.getState();
   return (
     <SafeAreaView
       edges={['top']}
@@ -69,6 +70,14 @@ export default function MyPageScreen() {
             size={12}
             color={isDark ? 'white' : 'black'}
           />
+        </TouchableOpacity>
+        <TouchableOpacity
+          className='bg-red-500 p-4'
+          onPress={() => {
+            logOut();
+          }}
+        >
+          <AppText className='text-white text-center'>로그아웃</AppText>
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>

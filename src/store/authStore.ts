@@ -47,6 +47,7 @@ export const useAuthStore = create<AuthState>()(
         email: '',
         nickname: '',
         profileUrl: '',
+        birthday: '',
       },
       jwt: {
         accessToken: '',
@@ -56,6 +57,7 @@ export const useAuthStore = create<AuthState>()(
         id: 0,
         nickname: '',
         profileUrl: '',
+        birthday: '',
       },
       couple: {
         anniversary: '',
@@ -74,6 +76,16 @@ export const useAuthStore = create<AuthState>()(
           user: { ...state.user, nickname },
         }));
       },
+      updateAnniversary: (anniversary: string) => {
+        set((state) => ({
+          couple: { ...state.couple, anniversary },
+        }));
+      },
+      updateBirthday: (birthday: string) => {
+        set((state) => ({
+          user: { ...state.user, birthday },
+        }));
+      },
       updateUser: (user: User, partner: Partner, couple: Couple) => {
         set({ user, partner, couple });
       },
@@ -87,12 +99,14 @@ export const useAuthStore = create<AuthState>()(
             email: '',
             nickname: '',
             profileUrl: '',
+            birthday: '',
           },
           jwt: { accessToken: '', refreshToken: '' },
           partner: {
             id: 0,
             nickname: '',
             profileUrl: '',
+            birthday: '',
           },
           couple: {
             anniversary: '',

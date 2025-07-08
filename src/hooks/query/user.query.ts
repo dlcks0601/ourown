@@ -1,5 +1,9 @@
 import { postConnectCouple } from '@/api/couple/couple.api';
-import { fetchCoupleInfo, setNickname } from '@/api/user/user.api';
+import {
+  fetchCoupleInfo,
+  setNickname,
+  updateUserBirthday,
+} from '@/api/user/user.api';
 import { useAuthStore } from '@/store/authStore';
 import { NicknameUpdateResponse } from '@/types/user.type';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -37,4 +41,18 @@ export const useSetConnectCouple = () => {
   });
 
   return { setUser: mutate };
+};
+
+export const useSetUserBirthdayMutation = () => {
+  const { updateBirthday } = useAuthStore.getState();
+  const { mutate } = useMutation({
+    mutationFn: ({ birthday }: { birthday: string }) => {
+      return updateUserBirthday(birthday);
+    },
+    onSuccess: ({ user }) => {
+      updateBirthday(user.birthday);
+      router.back();
+    },
+  });
+  return { setUserBirthday: mutate };
 };

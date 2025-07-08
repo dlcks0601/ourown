@@ -19,6 +19,7 @@ export interface User {
   email: string;
   nickname: string;
   profileUrl: string;
+  birthday: string;
 }
 
 export interface Partner {
@@ -26,6 +27,7 @@ export interface Partner {
   nickname: string;
   profileUrl: string;
   code?: string;
+  birthday: string;
 }
 
 export interface LoginResponse {
@@ -69,6 +71,8 @@ export interface AuthState {
     couple: Couple
   ) => void;
   updateNickname: (nickname: string) => void;
+  updateAnniversary: (anniversary: string) => void;
+  updateBirthday: (birthday: string) => void;
   updateUser: (user: User, Partner: Partner, couple: Couple) => void;
   logOut: () => void;
 }
