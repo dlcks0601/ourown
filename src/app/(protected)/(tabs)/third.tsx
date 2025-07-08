@@ -132,6 +132,7 @@ export default function ThirdScreen() {
           marginBottom: 16,
         }}
         contentContainerStyle={{ paddingBottom: 32 }}
+        showsVerticalScrollIndicator={false}
         renderItem={({ item }) => {
           const writeDate = formatToKoreanDate(item.createdAt);
           return (
