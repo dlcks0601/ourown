@@ -8,6 +8,7 @@ type AppTextProps = {
   center?: boolean;
   logo?: boolean;
   className?: string;
+  numberOfLines?: number;
 };
 
 export function AppText({
@@ -16,6 +17,7 @@ export function AppText({
   center = false,
   logo = false,
   className,
+  numberOfLines,
 }: AppTextProps) {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
@@ -28,6 +30,7 @@ export function AppText({
         logo && 'font-logo',
         className
       )}
+      numberOfLines={numberOfLines}
     >
       {children}
     </Text>
