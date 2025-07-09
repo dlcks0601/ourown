@@ -3,5 +3,5 @@ import { AnniversaryResponse } from './couple.type';
 
 export interface mypageAnniversaryResponse {
   message: MessageResponse;
-  anniv: AnniversaryResponse;
+  anniv: AnniversaryResponse[];
 }
