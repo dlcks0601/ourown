@@ -13,21 +13,12 @@ export function formatToKoreanDate(utcDateString: string): string {
     .format('YYYY.MM.DD');
 }
 
-export function calculateDday(anniversaryDate: string): number {
-  const anniversary = new Date(anniversaryDate);
-  const today = new Date();
+export function calculateDday(dateString: string): string {
+  const today = dayjs().startOf('day');
+  const target = dayjs(dateString).startOf('day');
+  const diff = target.diff(today, 'day');
 
-  const startDate = new Date(
-    anniversary.getFullYear(),
-    anniversary.getMonth(),
-    anniversary.getDate()
-  );
-  const endDate = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate()
-  );
-
-  const timeDiff = endDate.getTime() - startDate.getTime();
-  return Math.floor(timeDiff / (1000 * 60 * 60 * 24)) + 1;
+  if (diff === 0) return 'D-DAY';
+  if (diff > 0) return `D-${diff}`;
+  return `D+${Math.abs(diff)}`;
 }
