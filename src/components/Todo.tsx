@@ -45,7 +45,7 @@ export default function TodoWidget() {
       >
         <View className='flex-row justify-between items-center mb-1'>
           <Text className='text-red-500 font-bold text-xl'>
-            {user.nickname}
+            {isCurrentUser ? user.nickname : partnerData?.nickname}
           </Text>
           <Text className='text-white font-bold text-2xl'>
             {currentUser.todos.filter((todo) => !todo.isDone).length}
