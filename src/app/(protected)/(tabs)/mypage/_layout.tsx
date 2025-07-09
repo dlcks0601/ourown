@@ -29,6 +29,10 @@ export default function Layout() {
         name='birthday-setting'
         options={{ title: 'Birthday Setting', headerShown: false }}
       />
+      <Stack.Screen
+        name='profile-setting'
+        options={{ title: 'Profile Setting', headerShown: false }}
+      />
     </Stack>
   );
 }
