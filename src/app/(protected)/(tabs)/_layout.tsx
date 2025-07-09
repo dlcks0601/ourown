@@ -49,6 +49,8 @@ export default function BottomTabsLayout() {
         name='third'
         options={{
           title: 'Third',
+          headerShown: false,
+          popToTopOnBlur: true,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name='journal-outline' size={size} color={color} />
           ),
@@ -57,11 +59,14 @@ export default function BottomTabsLayout() {
       <Tabs.Screen
         name='mypage'
         options={{
+          title: 'Mypage',
+          headerShown: false,
+          popToTopOnBlur: true,
           tabBarBadgeStyle: {
             backgroundColor: 'tomato',
+
             color: 'white',
           },
-          title: 'Mypage',
           tabBarIcon: () => (
             <Image
               source={{ uri: user.profileUrl }}

@@ -33,6 +33,18 @@ export default function Layout() {
         name='profile-setting'
         options={{ title: 'Profile Setting', headerShown: false }}
       />
+      <Stack.Screen
+        name='anniversary'
+        options={{ title: 'Anniversary', headerShown: false }}
+      />
+      <Stack.Screen
+        name='add-anniversary'
+        options={{ title: 'Add Anniversary', headerShown: false }}
+      />
+      <Stack.Screen
+        name='patch-anniversary'
+        options={{ title: 'Patch Anniversary', headerShown: false }}
+      />
     </Stack>
   );
 }
