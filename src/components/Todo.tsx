@@ -3,6 +3,7 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import { useAuthStore } from '@/store/authStore';
 import { useRouter } from 'expo-router';
 import { Text, TouchableOpacity, View } from 'react-native';
+import { AppText } from './AppText';
 
 export default function TodoWidget() {
   const colorScheme = useColorScheme();
@@ -44,12 +45,12 @@ export default function TodoWidget() {
         activeOpacity={0.9}
       >
         <View className='flex-row justify-between items-center mb-1'>
-          <Text className='text-red-500 font-bold text-xl'>
+          <AppText className='text-red-500 font-bold text-xl'>
             {isCurrentUser ? user.nickname : partnerData?.nickname}
-          </Text>
-          <Text className='text-white font-bold text-2xl'>
+          </AppText>
+          <AppText className='text-white font-bold text-2xl'>
             {currentUser.todos.filter((todo) => !todo.isDone).length}
-          </Text>
+          </AppText>
         </View>
 
         <View className='flex-col'>
