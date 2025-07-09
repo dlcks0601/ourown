@@ -1,5 +1,6 @@
 import { AppText } from '@/components/AppText';
 import { calculateDday, formatToKoreanDate } from '@/constants/Day';
+import { useGetMypageAnniversary } from '@/hooks/query/mypage.query';
 import { useAuthStore } from '@/store/authStore';
 import { Ionicons, SimpleLineIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
@@ -21,6 +22,9 @@ export default function MyPageScreen() {
   const dday = calculateDday(couple.anniversary);
   const formattedAnniv = formatToKoreanDate(couple.anniversary);
   const { logOut } = useAuthStore.getState();
+  const { data } = useGetMypageAnniversary();
+  const anniv = data?.anniv ?? null;
+
   return (
     <SafeAreaView
       edges={['top']}
@@ -71,6 +75,11 @@ export default function MyPageScreen() {
             color={isDark ? 'white' : 'black'}
           />
         </TouchableOpacity>
+        <View key={anniv?.id} className='border-b border-gray-400 p-4'>
+          <AppText className='text-sm'>{anniv?.type}</AppText>
+          <AppText className='text-sm'>{anniv?.days} 일 째</AppText>
+          <AppText className='text-sm'>{anniv?.date}</AppText>
+        </View>
         <TouchableOpacity
           className='bg-red-500 p-4'
           onPress={() => {

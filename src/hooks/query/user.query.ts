@@ -1,12 +1,8 @@
 import { postConnectCouple } from '@/api/couple/couple.api';
-import {
-  fetchCoupleInfo,
-  setNickname,
-  updateUserBirthday,
-} from '@/api/user/user.api';
+import { setNickname, updateUserBirthday } from '@/api/user/user.api';
 import { useAuthStore } from '@/store/authStore';
 import { NicknameUpdateResponse } from '@/types/user.type';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { router } from 'expo-router';
 
 export const useSetNicknameMutation = () => {
@@ -19,14 +15,6 @@ export const useSetNicknameMutation = () => {
   });
 
   return { setNickname: mutate };
-};
-
-export const useGetCoupleInfo = (coupleId: number) => {
-  return useQuery({
-    queryKey: ['couple', coupleId],
-    queryFn: () => fetchCoupleInfo(coupleId),
-    enabled: !!coupleId,
-  });
 };
 
 export const useSetConnectCouple = () => {
