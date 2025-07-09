@@ -1,7 +1,7 @@
 import { MessageResponse, Partner, User } from './auth.type';
 
 export interface AnniversaryResponse {
-  id?: number | null;
+  id?: number;
   type: string;
   days: number;
   date: string;
