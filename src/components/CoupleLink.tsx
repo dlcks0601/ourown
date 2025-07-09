@@ -26,7 +26,9 @@ export default function CoupleLink() {
       </View>
 
       <View className='items-end'>
-        <AppText className='text-4xl font-bold text-pink-600'>{dday}일</AppText>
+        <AppText className='text-4xl font-bold text-pink-600'>
+          {String(dday).replace(/[^0-9]/g, '')}일
+        </AppText>
       </View>
     </View>
   );
