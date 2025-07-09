@@ -12,6 +12,7 @@ export const useSetNicknameMutation = () => {
     onSuccess: (data: NicknameUpdateResponse) => {
       const { updateNickname } = useAuthStore.getState();
       updateNickname(data.user.nickname);
+      queryClient.invalidateQueries({ queryKey: ['mypageAnniversary'] });
     },
   });
 
