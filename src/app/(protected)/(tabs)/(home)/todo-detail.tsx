@@ -55,6 +55,7 @@ export default function TodoDetailScreen() {
       </View>
       <FlatList
         data={sortedTodos}
+        className='px-4 mt-4'
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => {
           const isSelected = item.isDone;
