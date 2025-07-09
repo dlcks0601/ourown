@@ -2,6 +2,7 @@ import { postConnectCouple } from '@/api/couple/couple.api';
 import { setNickname, updateUserBirthday } from '@/api/user/user.api';
 import { useAuthStore } from '@/store/authStore';
 import { NicknameUpdateResponse } from '@/types/user.type';
+import { queryClient } from '@/utils/queryClinet';
 import { useMutation } from '@tanstack/react-query';
 import { router } from 'expo-router';
 
@@ -39,6 +40,7 @@ export const useSetUserBirthdayMutation = () => {
     },
     onSuccess: ({ user }) => {
       updateBirthday(user.birthday);
+      queryClient.invalidateQueries({ queryKey: ['mypageAnniversary'] });
       router.back();
     },
   });

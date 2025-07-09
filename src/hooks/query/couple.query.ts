@@ -5,6 +5,7 @@ import {
 } from '@/api/couple/couple.api';
 import { useAuthStore } from '@/store/authStore';
 import { CoupleImageResponse, CoupleMatchResponse } from '@/types/couple.type';
+import { queryClient } from '@/utils/queryClinet';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { router } from 'expo-router';
 
@@ -37,6 +38,7 @@ export const usePostCoupleAnniversaryMutation = () => {
     }) => updateCoupleAnniversary(coupleId, anniversary),
     onSuccess: ({ couple }) => {
       updateAnniversary(couple.anniversary);
+      queryClient.invalidateQueries({ queryKey: ['mypageAnniversary'] });
       router.back();
     },
   });
