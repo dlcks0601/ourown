@@ -4,3 +4,8 @@ export interface NicknameUpdateResponse {
   message: MessageResponse;
   user: User;
 }
+
+export interface UserBirthdayUpdateResponse {
+  message: MessageResponse;
+  user: User;
+}
