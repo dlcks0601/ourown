@@ -6,7 +6,8 @@ import {
   usePostTodoMutation,
 } from '@/hooks/query/todo.query';
 import { useAuthStore } from '@/store/authStore';
-import { EvilIcons } from '@expo/vector-icons';
+import { EvilIcons, SimpleLineIcons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 import { useState } from 'react';
 import {
   FlatList,
@@ -52,19 +53,32 @@ export default function TodoSettingScreen() {
   return (
     <SafeAreaView
       edges={['top']}
-      className={`flex-1 px-4 ${isDark ? 'bg-black' : 'bg-white'}`}
+      className={`flex-1 ${isDark ? 'bg-black' : 'bg-white'}`}
     >
-      <Text
-        className={`text-3xl font-logo mb-4 ${
-          isDark ? 'text-white' : 'text-black'
-        }`}
-      >
-        {user.nickname} todo
-      </Text>
+      <View className='flex-row items-center justify-center py-1'>
+        <TouchableOpacity
+          className='absolute left-4 top-2'
+          onPress={() => router.back()}
+        >
+          <SimpleLineIcons
+            name='arrow-left'
+            size={18}
+            color={isDark ? 'white' : 'black'}
+          />
+        </TouchableOpacity>
+        <Text
+          className={`text-3xl font-logo ${
+            isDark ? 'text-white' : 'text-black'
+          }`}
+        >
+          {user.nickname} todo
+        </Text>
+      </View>
 
       {/* 투두 리스트 */}
       <FlatList
         data={myTodos}
+        className='px-4 mt-4'
         keyExtractor={(item) => item.id.toString()}
         scrollEnabled={myTodos.length > 16}
         showsVerticalScrollIndicator={false}
