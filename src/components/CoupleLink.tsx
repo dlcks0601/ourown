@@ -1,4 +1,4 @@
-import { calculateDday, formatToKoreanDate } from '@/constants/Day';
+import { calculateDday } from '@/constants/Day';
 import { useAuthStore } from '@/store/authStore';
 import { View } from 'react-native';
 import { AppText } from './AppText';
@@ -11,7 +11,7 @@ export default function CoupleLink() {
   }
 
   const dday = calculateDday(couple.anniversary);
-  const formattedAnniv = formatToKoreanDate(couple.anniversary);
+  const formattedAnniv = couple.anniversary.slice(0, 10).replace(/-/g, '.');
 
   return (
     <View className='flex-1 aspect-square bg-[#401313] rounded-2xl p-4 justify-between'>
