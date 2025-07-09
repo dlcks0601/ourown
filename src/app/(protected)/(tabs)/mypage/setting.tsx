@@ -66,7 +66,7 @@ export default function SettingScreen() {
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View className='flex-col mt-10 gap-10'>
+        <View className='flex-col mt-10 gap-4'>
           <View className='flex-row items-center px-4 w-full'>
             <TouchableOpacity
               onPress={() => router.push('/mypage/start-setting')}
