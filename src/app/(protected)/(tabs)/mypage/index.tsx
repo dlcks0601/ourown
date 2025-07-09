@@ -75,13 +75,42 @@ export default function MyPageScreen() {
             color={isDark ? 'white' : 'black'}
           />
         </TouchableOpacity>
-        <View key={anniv?.id} className='border-b border-gray-400 p-4'>
-          <AppText className='text-sm'>{anniv?.type}</AppText>
-          <AppText className='text-sm'>{anniv?.days} 일 째</AppText>
-          <AppText className='text-sm'>{anniv?.date}</AppText>
-        </View>
         <TouchableOpacity
-          className='bg-red-500 p-4'
+          onPress={() => {
+            router.push('/mypage/anniversary');
+          }}
+          className='flex-row items-center justify-between mt-3'
+        >
+          <AppText className='text-xl font-logo'>Anniversary</AppText>
+          <SimpleLineIcons name='arrow-right' size={12} color='black' />
+        </TouchableOpacity>
+        <View className='flex-col px-4 py-1 border-gray-400 bg-[#dbdbdb] rounded-xl mt-4'>
+          {anniv?.slice(0, 3).map((item, index, arr) => (
+            <View
+              key={item.id}
+              className={`p-2 ${
+                index !== arr.length - 1 ? 'border-b border-gray-200' : ''
+              }`}
+            >
+              <View className='flex-row items-center justify-between'>
+                <View className='flex-col items-start gap-1'>
+                  <AppText className='text-sm font-semibold'>
+                    {item.type}
+                  </AppText>
+                  <AppText className='text-sm font-light text-gray-500'>
+                    {item.date.slice(0, 10).replace(/-/g, '.')}
+                  </AppText>
+                </View>
+                <AppText className='text-lg font-semibold'>
+                  {calculateDday(item.date)}
+                </AppText>
+              </View>
+            </View>
+          ))}
+        </View>
+
+        <TouchableOpacity
+          className='bg-red-500 p-4 mt-4'
           onPress={() => {
             logOut();
           }}
