@@ -9,3 +9,8 @@ export interface UserBirthdayUpdateResponse {
   message: MessageResponse;
   user: User;
 }
+
+export interface UploadProfileImageResponse {
+  message: MessageResponse;
+  user: { profileUrl: string };
+}

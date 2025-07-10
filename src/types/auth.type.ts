@@ -73,6 +73,7 @@ export interface AuthState {
   updateNickname: (nickname: string) => void;
   updateAnniversary: (anniversary: string) => void;
   updateBirthday: (birthday: string) => void;
+  updateProfileUrl: (profileUrl: string) => void;
   updateUser: (user: User, Partner: Partner, couple: Couple) => void;
   logOut: () => void;
 }

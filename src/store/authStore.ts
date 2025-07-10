@@ -86,6 +86,11 @@ export const useAuthStore = create<AuthState>()(
           user: { ...state.user, birthday },
         }));
       },
+      updateProfileUrl: (profileUrl: string) => {
+        set((state) => ({
+          user: { ...state.user, profileUrl },
+        }));
+      },
       updateUser: (user: User, partner: Partner, couple: Couple) => {
         set({ user, partner, couple });
       },

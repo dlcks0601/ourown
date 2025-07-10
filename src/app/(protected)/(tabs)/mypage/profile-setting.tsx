@@ -5,6 +5,8 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import { SimpleLineIcons } from '@expo/vector-icons';
 
 import { usePostCoupleAnniversaryMutation } from '@/hooks/query/couple.query';
+import { useUploadProfileImageMutation } from '@/hooks/query/user.query';
+import * as ImageManipulator from 'expo-image-manipulator';
 import * as ImagePicker from 'expo-image-picker';
 import { router } from 'expo-router';
 import { useState } from 'react';
@@ -22,6 +24,7 @@ export default function StartSettingScreen() {
   const [date, setDate] = useState(initialDate);
   const { postCoupleAnniversary } = usePostCoupleAnniversaryMutation();
   const coupleId = user.coupleId;
+  const { uploadProfileImage } = useUploadProfileImageMutation();
 
   const pickImage = async () => {
     // 권한 요청
@@ -32,23 +35,38 @@ export default function StartSettingScreen() {
       return;
     }
 
-    // 이미지 선택
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 0.8,
-    });
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        quality: 0.8,
+        aspect: [1, 1],
+      });
 
-    if (!result.canceled && result.assets[0]) {
-      // 선택된 이미지 처리
-      const selectedImage = result.assets[0];
-      console.log('Selected image:', selectedImage.uri);
+      if (!result.canceled && result.assets[0]) {
+        // 선택된 이미지 처리
+        const selectedImage = result.assets[0];
+        console.log('Selected image:', selectedImage.uri);
 
-      // TODO: 여기에 이미지 업로드 API 호출 로직 추가
-      // 예: uploadProfileImage(selectedImage.uri);
+        const manipulatedImage = await ImageManipulator.manipulateAsync(
+          selectedImage.uri,
+          [{ resize: { width: 300, height: 300 } }],
+          { format: ImageManipulator.SaveFormat.JPEG }
+        );
 
-      Alert.alert('성공', '프로필 이미지가 변경되었습니다.');
+        // FormData 생성
+        const formData = new FormData();
+        formData.append('file', {
+          uri: manipulatedImage.uri,
+          type: 'image/jpeg',
+          name: 'profile.jpg',
+        } as any);
+
+        uploadProfileImage(formData);
+      }
+    } catch (error) {
+      console.error('이미지 처리 중 오류:', error);
+      Alert.alert('오류', '이미지 처리 중 오류가 발생했습니다.');
     }
   };
 

@@ -1,5 +1,9 @@
 import { postConnectCouple } from '@/api/couple/couple.api';
-import { setNickname, updateUserBirthday } from '@/api/user/user.api';
+import {
+  setNickname,
+  updateUserBirthday,
+  uploadProfileImage,
+} from '@/api/user/user.api';
 import { useAuthStore } from '@/store/authStore';
 import { NicknameUpdateResponse } from '@/types/user.type';
 import { queryClient } from '@/utils/queryClinet';
@@ -46,4 +50,16 @@ export const useSetUserBirthdayMutation = () => {
     },
   });
   return { setUserBirthday: mutate };
+};
+
+export const useUploadProfileImageMutation = () => {
+  const { updateProfileUrl } = useAuthStore.getState();
+  const { mutate } = useMutation({
+    mutationFn: (file: FormData) => uploadProfileImage(file),
+    onSuccess: ({ user: { profileUrl } }) => {
+      updateProfileUrl(profileUrl);
+      router.back();
+    },
+  });
+  return { uploadProfileImage: mutate };
 };
