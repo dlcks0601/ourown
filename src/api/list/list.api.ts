@@ -13,7 +13,6 @@ export const getList = async (
     url: `/list/${coupleId}`,
     method: 'GET',
   });
-  console.log(resposne.data);
   return resposne.data;
 };
 
