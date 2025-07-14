@@ -15,6 +15,10 @@ export default function Layout() {
         name='todo-detail'
         options={{ title: 'TodoDetail', headerShown: false }}
       />
+      <Stack.Screen
+        name='notifications'
+        options={{ title: 'Notifications', headerShown: false }}
+      />
     </Stack>
   );
 }
