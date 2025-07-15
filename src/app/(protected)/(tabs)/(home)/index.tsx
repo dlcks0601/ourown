@@ -3,6 +3,7 @@ import CoupleLink from '@/components/CoupleLink';
 import CoupleMemo from '@/components/CoupleMemo';
 import CoupleWidget from '@/components/CoupleWidget';
 import Todo from '@/components/Todo';
+import { usePrevNotificationQuery } from '@/hooks/query/notification.query';
 import { useAuthStore } from '@/store/authStore';
 import { useNotificationStore } from '@/store/notificationStore';
 import { EvilIcons } from '@expo/vector-icons';
@@ -15,10 +16,13 @@ export default function IndexScreen() {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
   const { user } = useAuthStore();
-  const { unreadCount } = useNotificationStore();
+  const { unreadCount, markAllAsReadOnPageEnter } = useNotificationStore();
+  const { refetch } = usePrevNotificationQuery();
   const hasCouple = !!user?.coupleId;
 
   const handleNotificationPress = () => {
+    markAllAsReadOnPageEnter(); // 알림 페이지에 들어갈 때 모든 알림을 읽음 처리
+    refetch(); // 새로운 GET 요청
     router.push('/(protected)/(tabs)/(home)/notifications');
   };
 
@@ -38,11 +42,7 @@ export default function IndexScreen() {
                 color={isDark ? 'white' : 'black'}
               />
               {unreadCount > 0 && (
-                <View className='absolute -top-1 -right-1 bg-red-500 rounded-full min-w-[18px] h-[18px] items-center justify-center'>
-                  <AppText className='text-white text-xs font-bold'>
-                    {unreadCount > 99 ? '99+' : unreadCount}
-                  </AppText>
-                </View>
+                <View className='absolute -top-1 -right-1 bg-red-500 rounded-full w-[8px] h-[8px]' />
               )}
             </TouchableOpacity>
           </View>

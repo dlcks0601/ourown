@@ -4,12 +4,6 @@ import { NotificationResponse } from '@/types/notification.type';
 import fetcher from '@/utils/fetcher';
 import EventSource from 'react-native-sse';
 
-export interface NotificationEvent {
-  type: string;
-  data: any;
-  timestamp: string;
-}
-
 class NotificationService {
   private eventSource: EventSource | null = null;
   private isConnected: boolean = false;
@@ -71,36 +65,9 @@ class NotificationService {
 
   // 알림 처리 로직
   private handleNotification(data: any): void {
-    // 알림 store에 저장
+    // 알림 store에 unreadCount만 증가
     const { addNotification } = useNotificationStore.getState();
-
-    // SSE에서 받은 데이터를 이전 알림 기록과 일관성 있게 변환
-    addNotification({
-      type: data.type,
-      payload: {
-        id: data.payload?.id || Date.now(),
-        message: data.payload?.message || data.payload,
-      },
-    });
-  }
-
-  // 연결 상태 확인
-  isConnectedToSSE(): boolean {
-    return this.isConnected;
-  }
-
-  // 커스텀 이벤트 리스너 추가
-  addEventListener(eventType: any, callback: (event: any) => void): void {
-    if (this.eventSource) {
-      this.eventSource.addEventListener(eventType, callback);
-    }
-  }
-
-  // 커스텀 이벤트 리스너 제거
-  removeEventListener(eventType: any, callback: (event: any) => void): void {
-    if (this.eventSource) {
-      this.eventSource.removeEventListener(eventType, callback);
-    }
+    addNotification();
   }
 }
 
@@ -124,15 +91,9 @@ export const useNotificationService = () => {
     notificationService.disconnect();
   };
 
-  const isConnected = () => {
-    return notificationService.isConnectedToSSE();
-  };
-
   return {
     connectToSSE,
     disconnectFromSSE,
-    isConnected,
-    notificationService,
   };
 };
 
