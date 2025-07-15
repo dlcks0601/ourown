@@ -6,7 +6,7 @@ import EventSource from 'react-native-sse';
 
 class NotificationService {
   private eventSource: EventSource | null = null;
-  private isConnected: boolean = false;
+  public isConnected: boolean = false;
 
   // SSE 연결 시작
   connect(userId: number): EventSource {
@@ -63,6 +63,11 @@ class NotificationService {
     }
   }
 
+  // 연결 상태 확인
+  getConnectionStatus(): boolean {
+    return this.isConnected;
+  }
+
   // 알림 처리 로직
   private handleNotification(data: any): void {
     // 알림 store에 unreadCount만 증가
@@ -91,9 +96,14 @@ export const useNotificationService = () => {
     notificationService.disconnect();
   };
 
+  const isConnected = () => {
+    return notificationService.getConnectionStatus();
+  };
+
   return {
     connectToSSE,
     disconnectFromSSE,
+    isConnected,
   };
 };
 
