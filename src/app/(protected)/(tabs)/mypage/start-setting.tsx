@@ -76,6 +76,7 @@ export default function StartSettingScreen() {
                 if (selectedDate) setDate(selectedDate);
               }}
               locale='ko-KR'
+              maximumDate={new Date()}
             />
           </View>
           <TouchableOpacity
