@@ -156,7 +156,7 @@ export default function BucketScreen() {
                     }))
                   }
                   onSubmit={() => handleAdd(cat.id)}
-                  maxLength={40}
+                  maxLength={20}
                 />
 
                 {/* 아이템 */}
