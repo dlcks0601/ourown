@@ -87,7 +87,7 @@ export default function TodoSettingScreen() {
             value={inputValue}
             onChangeText={setInputValue}
             onSubmit={handleAdd}
-            maxLength={40}
+            maxLength={23}
           />
         }
         renderItem={({ item }) => {
