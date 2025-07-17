@@ -9,6 +9,7 @@ type AppTextProps = {
   logo?: boolean;
   className?: string;
   numberOfLines?: number;
+  ellipsizeMode?: 'head' | 'middle' | 'tail' | 'clip';
 };
 
 export function AppText({
@@ -18,6 +19,7 @@ export function AppText({
   logo = false,
   className,
   numberOfLines,
+  ellipsizeMode,
 }: AppTextProps) {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
@@ -31,6 +33,7 @@ export function AppText({
         className
       )}
       numberOfLines={numberOfLines}
+      ellipsizeMode={ellipsizeMode}
     >
       {children}
     </Text>
