@@ -68,8 +68,8 @@ export default function NicknameSettingScreen() {
               <SetInput
                 value={nickname}
                 onChangeText={setNickname}
-                placeholder='닉네임을 입력해주세요 (최대 10자)'
-                maxLength={10}
+                placeholder='닉네임을 입력해주세요 (최대 8자)'
+                maxLength={8}
               />
             </View>
             <TouchableOpacity
