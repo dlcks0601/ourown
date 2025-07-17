@@ -21,9 +21,6 @@ export default function CoupleLink() {
         </AppText>
         <AppText className='text-md text-gray-200'>{formattedAnniv}</AppText>
       </View>
-      <View>
-        <AppText className='text-center text-4xl'>😂</AppText>
-      </View>
 
       <View className='items-end'>
         <AppText className='text-4xl font-bold text-pink-600'>
