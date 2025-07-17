@@ -87,6 +87,7 @@ export default function TodoSettingScreen() {
             value={inputValue}
             onChangeText={setInputValue}
             onSubmit={handleAdd}
+            maxLength={40}
           />
         }
         renderItem={({ item }) => {
@@ -101,33 +102,34 @@ export default function TodoSettingScreen() {
                     isSelected ? 'border-red-500 bg-red-500' : 'border-gray-400'
                   }`}
                 />
+                <View className='flex-1'>
+                  <Text
+                    numberOfLines={1}
+                    className={`text-lg ${
+                      isSelected
+                        ? isDark
+                          ? 'text-gray-300'
+                          : 'text-gray-400'
+                        : isDark
+                        ? 'text-white'
+                        : 'text-black'
+                    }`}
+                  >
+                    {item.content}
+                  </Text>
+                </View>
+                {/* 삭제 버튼 */}
 
-                <Text
-                  numberOfLines={1}
-                  className={`text-lg ${
-                    isSelected
-                      ? isDark
-                        ? 'text-gray-300'
-                        : 'text-gray-400'
-                      : isDark
-                      ? 'text-white'
-                      : 'text-black'
-                  }`}
+                <TouchableOpacity
+                  onPress={() => deleteTodo({ todoId: item.id, coupleId })}
                 >
-                  {item.content}
-                </Text>
+                  <EvilIcons
+                    name='close'
+                    size={20}
+                    color={isDark ? '#fff' : '#000'}
+                  />
+                </TouchableOpacity>
               </View>
-
-              {/* 삭제 버튼 */}
-              <TouchableOpacity
-                onPress={() => deleteTodo({ todoId: item.id, coupleId })}
-              >
-                <EvilIcons
-                  name='close'
-                  size={20}
-                  color={isDark ? '#fff' : '#000'}
-                />
-              </TouchableOpacity>
             </View>
           );
         }}
