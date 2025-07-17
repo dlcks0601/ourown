@@ -1,16 +1,18 @@
 import { TextInput, useColorScheme, View } from 'react-native';
 
-interface CheckInputProps {
+interface SetInputProps {
   value: string;
   onChangeText: (text: string) => void;
   placeholder?: string; // optional
+  maxLength?: number;
 }
 
-export default function CheckInput({
+export default function SetInput({
   value,
   onChangeText,
   placeholder = '내용을 입력해주세요.', // 기본값 지정
-}: CheckInputProps) {
+  maxLength,
+}: SetInputProps) {
   const isDark = useColorScheme() === 'dark';
 
   return (
@@ -20,6 +22,7 @@ export default function CheckInput({
         onChangeText={onChangeText}
         placeholder={placeholder}
         placeholderTextColor={isDark ? '#999' : '#ccc'}
+        maxLength={maxLength}
         style={{
           color: isDark ? '#ffffff' : '#000000',
           fontSize: 16,
