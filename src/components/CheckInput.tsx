@@ -9,12 +9,14 @@ interface CheckInputProps {
   value: string;
   onChangeText: (text: string) => void;
   onSubmit: () => void;
+  maxLength?: number;
 }
 
 export default function CheckInput({
   value,
   onChangeText,
   onSubmit,
+  maxLength,
 }: CheckInputProps) {
   const isDark = useColorScheme() === 'dark';
 
@@ -33,6 +35,7 @@ export default function CheckInput({
         onChangeText={onChangeText}
         onSubmitEditing={onSubmit}
         returnKeyType='done'
+        maxLength={maxLength}
         style={{
           color: isDark ? '#ffffff' : '#000000',
           fontSize: 16,
