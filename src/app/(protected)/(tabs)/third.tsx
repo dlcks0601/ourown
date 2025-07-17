@@ -21,6 +21,7 @@ import {
   FlatList,
   Modal,
   Pressable,
+  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
@@ -72,8 +73,17 @@ export default function ThirdScreen() {
           setIsEditing(true);
           setEditedContent(selectedMemo.content);
         } else if (buttonIndex === 2) {
-          deleteMemo({ coupleId, memoId: selectedMemo.id });
-          closeModal();
+          Alert.alert('메모 삭제', '정말로 이 메모를 삭제하시겠습니까?', [
+            { text: '취소', style: 'cancel' },
+            {
+              text: '삭제',
+              onPress: () => {
+                deleteMemo({ coupleId, memoId: selectedMemo.id });
+                closeModal();
+              },
+              style: 'destructive',
+            },
+          ]);
         }
       }
     );
@@ -144,8 +154,12 @@ export default function ThirdScreen() {
                 <AppText className='text-sm'>{item.user.nickname}</AppText>
                 <AppText className='text-sm'>{writeDate}</AppText>
               </View>
-              <View className='px-3 py-3'>
-                <AppText className='text-md text-black dark:text-black'>
+              <View className='flex-1 px-3 py-3'>
+                <AppText
+                  className='text-md text-black dark:text-black'
+                  numberOfLines={8}
+                  ellipsizeMode='tail'
+                >
                   {item.content}
                 </AppText>
               </View>
@@ -273,7 +287,7 @@ export default function ThirdScreen() {
                   </TouchableOpacity>
                 </View>
 
-                <View className='border border-[#b5b5b5] mt-10 p-4 h-[400px] rounded-xl'>
+                <View className='border border-[#b5b5b5] mt-10 p-4 h-[400px] rounded-xl relative'>
                   {(selectedMemo || isCreating) && (
                     <View className='flex-1'>
                       {!isCreating && !isEditing && selectedMemo && (
@@ -304,22 +318,33 @@ export default function ThirdScreen() {
                                 : formatToKoreanDate(selectedMemo!.createdAt)}
                             </AppText>
                           </View>
+                          <View>
+                            <TextInput
+                              maxLength={500}
+                              multiline
+                              value={editedContent}
+                              onChangeText={setEditedContent}
+                              style={{
+                                padding: 0,
+                                height: 340,
+                                color: isDark ? '#ffffff' : '#000000',
+                              }}
+                              placeholder='메모를 입력해주세요'
+                              placeholderTextColor={isDark ? '#a7a7a7' : '#888'}
+                            />
 
-                          <TextInput
-                            multiline
-                            value={editedContent}
-                            onChangeText={setEditedContent}
-                            style={{
-                              padding: 0,
-                              height: 350,
-                              color: isDark ? '#ffffff' : '#000000',
-                            }}
-                            placeholder='메모를 입력해주세요'
-                            placeholderTextColor={isDark ? '#a7a7a7' : '#888'}
-                          />
+                            {/* 글자수 표시 */}
+                            <View className='flex-row justify-end'>
+                              <AppText className='text-xs text-gray-500'>
+                                {editedContent.length}/500
+                              </AppText>
+                            </View>
+                          </View>
                         </View>
                       ) : (
-                        <AppText>{selectedMemo?.content}</AppText>
+                        <ScrollView className='flex-1'>
+                          <AppText>{selectedMemo?.content}</AppText>
+                        </ScrollView>
                       )}
                     </View>
                   )}
