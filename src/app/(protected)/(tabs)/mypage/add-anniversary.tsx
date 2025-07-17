@@ -67,6 +67,7 @@ export default function AddAnniversaryScreen() {
                   value={title}
                   onChangeText={setTitle}
                   placeholder='기념일 이름을 입력해주세요'
+                  maxLength={20}
                 />
               </View>
               {/* 선택된 날짜 표시 */}
@@ -88,6 +89,7 @@ export default function AddAnniversaryScreen() {
                 if (selectedDate) setDate(selectedDate);
               }}
               locale='ko-KR'
+              minimumDate={new Date()}
             />
           </View>
           <TouchableOpacity
