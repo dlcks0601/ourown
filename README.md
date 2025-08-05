@@ -1,50 +1,52 @@
-# Welcome to your Expo app 👋
+## 👩‍❤️‍👨 Our Own : 커플 전용 공유형 라이프 매니저
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+### 우리만의 공간, 우리가 함께 소유한 기록
 
-## Get started
+OurOwn은 커플이 함께 쓰는 할 일, 메모, 기념일 등 일상 속 소소한 순간들을 공유하고 기록할 수 있는 앱입니다.
+단순한 메신저나 캘린더를 넘어서, 연인 간의 관계를 더 단단하게 만들어줄 '우리만의 공간'을 만드는 것이 목적입니다.
 
-1. Install dependencies
+## ⚒️ Tech Spec
 
-   ```bash
-   npm install
-   ```
+### 📱 Frontend
 
-2. Start the app
+- **Language:** TypeScript
+- **Framework:** React Native
+- **Development Platform:** Expo
+- **State Management:** Zustand
+- **Styling:** NativeWind (Tailwind CSS for React Native)
+- **HTTP Client:** Axios
+- **Navigation:** Expo Router
 
-   ```bash
-   npx expo start
-   ```
+## 📱 주요 기능
 
-In the output, you'll find options to open the app in a
+### OAuth 로그인
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- 카카오, 구글 OAuth를 통해 간편하게 로그인이 가능합니다.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### 🏠 Our Own (홈 화면)
 
-## Get a fresh project
+<img width="300" alt="홈화면" src="assets/home.png" />
 
-When you're ready, run:
+- 서로의 To-do를 작성하고 실시간으로 공유할 수 있습니다.
+- 위젯 포토와 위젯 메모 기능을 활용해 홈 화면을 나만의 스타일로 꾸밀 수 있습니다.
 
-```bash
-npm run reset-project
-```
+### 📝 Our List (버킷 리스트)
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+<img width="300" alt="버킷 리스트" src="assets/bucket.png" />
 
-## Learn more
+- 함께 이루고 싶은 버킷리스트를 작성하고 공유할 수 있습니다.
+- 완료한 항목은 체크하여 함께 성취감을 느낄 수 있습니다.
 
-To learn more about developing your project with Expo, look at the following resources:
+### 📓 Our Memo
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+<img width="300" alt="메모" src="assets/memo.png" />
 
-## Join the community
+- 중요한 순간이나 일상을 기록할 수 있는 공유 메모 기능을 제공합니다.
+- 작성한 메모는 커플과 함께 확인하고 수정할 수 있습니다.
 
-Join our community of developers creating universal apps.
+### 🙋 Our Page
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+<img width="300" alt="마이페이지" src="assets/page.png" />
+
+- 닉네임, 프로필 사진, 생일 등 나의 정보를 자유롭게 수정할 수 있습니다.
+- 다가오는 기념일을 확인하고 새로운 기념일도 직접 추가할 수 있습니다.
